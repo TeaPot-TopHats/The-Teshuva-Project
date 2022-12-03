@@ -1,0 +1,6 @@
+Dynamic Sprite Sorting:
+
+1. Edit > Project Settings > Graphics > Transperancy Sort Mode (Custom Axis) > Transperancy Sort Axis (0, 1, 0)
+2. Set pivot points lower on the sprite
+3. On the objects' Sprite Renderer make sure the objects are on the same layer
+4. Set Sprite Sort Point in all objects to pivot
