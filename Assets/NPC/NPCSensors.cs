@@ -12,7 +12,7 @@ public class NPCSensors : MonoBehaviour
     [SerializeField] private float attackRadius;
     //[SerializeField] public Vector3 TargetPosition { get; private set; }
     //[SerializeField] public bool seePlayer { get; private set; }
-    [SerializeField] public bool canAttack { get; private set; }
+    [SerializeField] public bool withinRange { get; private set; }
 
     private void Start()
     {
@@ -21,8 +21,8 @@ public class NPCSensors : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        canAttack = Physics2D.OverlapCircle(AttackArea.position, attackRadius, PlayerLayer);
-        Debug.Log(canAttack);
+        withinRange = Physics2D.OverlapCircle(AttackArea.position, attackRadius, PlayerLayer);
+        Debug.Log(withinRange);
     }
 
     /*public void SetLayer(Transform transform, SpriteRenderer renderer)
