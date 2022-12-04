@@ -5,16 +5,20 @@ using UnityEngine;
 
 public class NPCController : MonoBehaviour
 {
-    
-    NPCStates CS;
+    [SerializeField] NPCSensors Sensors;
+    public NPCStates CS { get; private set; }
     event Action CA;
+    [SerializeField] int health;
     [SerializeField] float speed;
     [SerializeField] float defaultSpeed;
     [SerializeField] float timer;
     [SerializeField] float attackTime;
     [SerializeField] float idleTime;
     [SerializeField] float chaseTime;
+    [SerializeField] float hurtTime;
     [SerializeField] float deathTime;
+    [SerializeField] float initialCoolDown;
+    [SerializeField] float coolDown;
     [SerializeField] bool hasAttacked;
     [SerializeField] Rigidbody2D RB;
     [SerializeField] Vector2 CP;
@@ -26,11 +30,12 @@ public class NPCController : MonoBehaviour
     void Start()
     {
         CS = NPCStates.IDLE;
-        CA = Idle;
+        CA = Idling;
     }
 
     void Update()
     {
+        CanAttack();
         CA();
         
 
@@ -41,23 +46,89 @@ public class NPCController : MonoBehaviour
         NPCActions.Move(RB, CP, speed);
     }
 
-    public void Idle()
+    public void Idling()
     {
-        speed = 0;
-    }
-
-    public void Chase()
-    {
-        speed = defaultSpeed;
-    }
-
-    public void Attack()
-    {
-        speed = 0;
-        if (timer >= attackTime)
+        Count();
+        if (timer>idleTime)
         {
-
+            SetState(NPCStates.MOVING, Chasing, 0, defaultSpeed);
         }
-        //NPCSensors.Player.GetComponent<PlayerController>().Attacked();
+    }
+
+    public void Chasing()
+    {
+
+
+    }
+
+    public void Attacking()
+    {
+        if (coolDown > 0)
+        {
+            SetState(NPCStates.IDLE, Idling, 0, 0);
+        }
+        
+    }
+
+    public void Hurting()
+    {
+        Count();
+        if(timer >= hurtTime)
+        {
+            if(health > 0)
+                SetState(NPCStates.IDLE, Idling, 0, 0);
+            else
+                SetState(NPCStates.DEAD, Dying, 0, 0);
+        }
+    }
+    public void Dying()
+    {
+        Count();
+        if (timer >= deathTime)
+            Destroy(this);
+
+    }
+
+    public void AttackThrown()
+    {
+        if (Sensors.withinRange)
+        {
+            //NPCSensors.Player.GetComponent<PlayerController>().Attacked();
+        }
+    }
+
+    public void AttackEnded()
+    {
+        coolDown = initialCoolDown;
+    }
+
+    //if cool down is up and in range then set to attack
+    public void CanAttack()
+    {
+        if (coolDown <= 0 && Sensors.withinRange)
+        {
+            
+            SetState(NPCStates.ATTACKING, Attacking, 0, 0);
+        }
+        
+    }
+
+    public void SetState( NPCStates state, Action action, float timer, float speed)
+    {
+        CS = state;
+        CA = action;
+        this.timer = timer;
+        this.speed = speed;
+    }
+
+    public void Count()
+    {
+        timer += Time.deltaTime;
+    }
+
+    public void Damaged()
+    {
+        health--;
+        SetState(NPCStates.HURT, Hurting, 0, 0);
     }
 }
