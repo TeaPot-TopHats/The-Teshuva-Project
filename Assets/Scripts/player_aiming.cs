@@ -13,7 +13,7 @@ using System.Collections;
 public class player_aiming : MonoBehaviour
 {
 	[SerializeField] private Vector2 mousePos;
-	[SerializeField] private Camera camera;
+	[SerializeField] private Camera mainCam;
 	[SerializeField] private GameObject weapon;
 	[SerializeField] private GameObject arrow;
 	[SerializeField] private GameObject projectileSpawn;
@@ -50,7 +50,7 @@ public class player_aiming : MonoBehaviour
 
 	void OnLook(InputValue value)
 	{
-		mousePos = camera.ScreenToWorldPoint(value.Get<Vector2>());
+		mousePos = mainCam.ScreenToWorldPoint(value.Get<Vector2>());
 	}
 	
 	void OnFire(InputValue value)
