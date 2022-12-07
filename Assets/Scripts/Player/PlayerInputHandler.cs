@@ -28,7 +28,7 @@ public class PlayerInputHandler : MonoBehaviour
 	
 	private void GetMousePos()
 	{
-        MousePos = MainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+		MousePos = MainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 	}
 
 	public void OnMove(InputAction.CallbackContext context)
@@ -48,3 +48,5 @@ public class PlayerInputHandler : MonoBehaviour
 		Combat.HoldFire(context);
 	}
 }
+
+// TODO: Add controller support. All that needs to be implemented is aiming, everything else works.
