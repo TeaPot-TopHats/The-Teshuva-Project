@@ -6,10 +6,14 @@ using UnityEngine.InputSystem;
 public class PlayerInputHandler : MonoBehaviour
 {
 	[SerializeField] private Camera MainCamera;
+	[SerializeField] private PlayerInput PlayerInputComponent;
+
 
 	[SerializeField] public Vector2 Movement{get; set;}
-	[SerializeField] public Vector2 MousePos{get; set;}
-	[SerializeField] public Vector2 AimDirection{get; set;}
+	[SerializeField] private Vector2 LookPos{get; set;}
+	[SerializeField] public  Vector2 AimVector{get; set;}
+	[SerializeField] public float AimAngle{get; set;}
+	[SerializeField] public string CurrentInputDevice{ get; private set; }
 
 
 	private PlayerCombat Combat;
@@ -18,18 +22,25 @@ public class PlayerInputHandler : MonoBehaviour
 	private void Start()
 	{
 		Combat = GetComponent<PlayerCombat>();
-	}
-
-
-	private void Update()
-	{
-		GetMousePos();
-	}
+	}	
 	
-	private void GetMousePos()
+	
+	public void OnLook(InputAction.CallbackContext context)
 	{
-		MousePos = MainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+		if(CurrentInputDevice == "Keyboard&Mouse")
+		{
+			LookPos = MainCamera.ScreenToWorldPoint(context.ReadValue<Vector2>());
+			AimVector = LookPos - (Vector2)Combat.Weapon.transform.position;
+			AimAngle = Mathf.Atan2(AimVector.y, AimVector.x) * Mathf.Rad2Deg;
+		}
+		else if (CurrentInputDevice == "Gamepad" && context.performed)
+		{
+			LookPos = context.ReadValue<Vector2>();
+			AimVector = LookPos;
+			AimAngle = Mathf.Atan2(context.ReadValue<Vector2>().y, context.ReadValue<Vector2>().x) * Mathf.Rad2Deg;
+		}
 	}
+
 
 	public void OnMove(InputAction.CallbackContext context)
 	{
@@ -39,14 +50,33 @@ public class PlayerInputHandler : MonoBehaviour
 	
 	public void OnFire(InputAction.CallbackContext context)
 	{
-		Combat.RapidFire(context);
+		
 	}
 
 
 	public void OnSecondary(InputAction.CallbackContext context)
 	{
-		Combat.HoldFire(context);
+
+	}
+	
+	
+	public void OnControlsChanged()
+	{
+		CurrentInputDevice = PlayerInputComponent.currentControlScheme;
+		
+		if (PlayerInputComponent.currentControlScheme == "Keyboard&Mouse")
+		{
+			//Debug.Log("Using Keyboard&Mouse");
+			CurrentInputDevice = PlayerInputComponent.currentControlScheme;
+		}
+		else if (PlayerInputComponent.currentControlScheme == "Gamepad")
+		{
+			//Debug.Log("Using Gamepad");
+			CurrentInputDevice = PlayerInputComponent.currentControlScheme;
+		}
+		else
+		{
+			//Debug.Log("Invalid Input Device: " + PlayerInputComponent.currentControlScheme);
+		}
 	}
 }
-
-// TODO: Add controller support. All that needs to be implemented is aiming, everything else works.

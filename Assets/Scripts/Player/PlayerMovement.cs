@@ -4,26 +4,39 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+	private Rigidbody2D Rigid;
+	private Animator Animator;
 	private PlayerInputHandler InputH;
 	private PlayerStats Stats;
-	private Animator Animator;
-	private Rigidbody2D Rigid;
+	
+	
+	public bool CanMove = true;
+	
 
 	private void Start()
 	{
-		Animator = GetComponent<Animator>();
 		Rigid = GetComponent<Rigidbody2D>();
+		Animator = GetComponent<Animator>();
 		InputH = GetComponent<PlayerInputHandler>();
 		Stats = GetComponent<PlayerStats>();
 	}
 	
+	
 	private void FixedUpdate()
 	{
-		AnimationCheck();
-		Rigid.MovePosition(Rigid.position + InputH.Movement * Stats.MOVESPEED * Time.fixedDeltaTime);
+		if(CanMove)
+		{
+			AnimationCheck();
+			Rigid.MovePosition(Rigid.position + InputH.Movement * Stats.MOVESPEED * Time.fixedDeltaTime);
+		}
+		else
+		{
+			Animator.SetBool("IsMoving", false);
+		}
 	}
 
-	private void AnimationCheck() // Checks which animation to play
+
+	private void AnimationCheck()
 	{
 		// Walk animation
 		if (InputH.Movement  == Vector2.zero)
@@ -35,5 +48,4 @@ public class PlayerMovement : MonoBehaviour
 			Animator.SetBool("IsMoving", true);
 		}
 	}
-
 }

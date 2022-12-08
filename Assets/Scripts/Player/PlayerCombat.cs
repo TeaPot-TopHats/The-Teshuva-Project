@@ -2,97 +2,52 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+// This script handles aiming and combat
+// TODO: Add Finite State Machine for Player Actions
+// TODO: Add a Pause State
+
 public class PlayerCombat : MonoBehaviour
 {
-	[SerializeField] private GameObject Weapon;
-	[SerializeField] private GameObject ProjectileSpawn;
+	[SerializeField] public GameObject Weapon;
 	[SerializeField] private GameObject Arrow;
+	[SerializeField] private GameObject ProjectileSpawn;
 
-	private Rigidbody2D Rigid;
 	
+	private Rigidbody2D Rigid;
 	private SpriteRenderer Sprite;
 	private PlayerInputHandler InputH;
 
-	private Vector2 AimDirection;
-	private bool canShoot = true;
-	private float angle = 0f;
+
 	private Quaternion rotation = new Quaternion();
-	private bool rapidFire = false;
-	private bool isPrimaryOn = false;
-	private bool isSecondaryOn = false;
+
+
+	public bool canLook = true;
+	private bool canShoot = true;
 
 
 	private void Start()
 	{
-		Sprite = GetComponent<SpriteRenderer>();
 		Rigid = GetComponent<Rigidbody2D>();
+		Sprite = GetComponent<SpriteRenderer>();
 		InputH = GetComponent<PlayerInputHandler>();
 	}
 
 
 	private void Update()
 	{
-		if(rapidFire)
-		{
-			Fire();
-		}
+
 	}
+
 
 	private void FixedUpdate()
 	{
-		AimDirection = InputH.MousePos - (Vector2)Weapon.transform.position;
-		angle = Mathf.Atan2(AimDirection.y, AimDirection.x) * Mathf.Rad2Deg;
-		rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-		Weapon.transform.rotation = rotation;
-		AnimationCheck();
-	}
-
-
-	public void RapidFire(InputAction.CallbackContext context)
-	{
-		if(!isSecondaryOn)
+		if(canLook)
 		{
-			if (context.started)
-			{
-				Debug.Log("Rapid Started");
-				rapidFire = true;
-				isPrimaryOn = true;
-			}
-			else if (context.canceled)
-			{
-				Debug.Log("Rapid Ended");
-				rapidFire = false;
-				isPrimaryOn = false;
-			}
+			rotation = Quaternion.AngleAxis(InputH.AimAngle, Vector3.forward);
+			Weapon.transform.rotation = rotation;
+			SpriteFlipCheck();
 		}
-	}
-	
-	
-	public void HoldFire(InputAction.CallbackContext context)
-	{
-		if(!isPrimaryOn)
-		{
-			if (context.started)
-			{
-				Debug.Log("Hold Started");
-				//Debug.Log(context);
-				isSecondaryOn = true;
-			}
-			else if (context.canceled && context.duration >= 0.4f)
-			{
-				//Debug.Log(context);
-				Debug.Log("Hold Ended");
-				SuperFire();
-				isSecondaryOn = false;
-			}
-			else if (context.canceled)
-			{
-				//Debug.Log(context);
-				Debug.Log("Hold Ended");	
-				isSecondaryOn = false;			
-			}
-		}
-	}
+	}	
 	
 	
 	public void Fire()
@@ -106,14 +61,6 @@ public class PlayerCombat : MonoBehaviour
 			StartCoroutine(CanShoot());
 		}
 	}
-	public void SuperFire()
-	{
-		if (!canShoot) return;
-
-		GameObject special = Instantiate(Arrow, ProjectileSpawn.transform.position, ProjectileSpawn.transform.rotation);
-		special.transform.localScale = new Vector3(0.1f, 0.8f, 1f);
-		StartCoroutine(CanShoot());
-	}
 	
 	IEnumerator CanShoot()
 	{
@@ -123,13 +70,13 @@ public class PlayerCombat : MonoBehaviour
 	}
 
 
-	private void AnimationCheck()
+	private void SpriteFlipCheck()
 	{
-		if (AimDirection.x < 0)
+		if (InputH.AimVector.x < 0)
 		{
 			Sprite.flipX = true;
 		}
-		else if (AimDirection.x > 0)
+		else if (InputH.AimVector.x > 0)
 		{
 			Sprite.flipX = false;
 		}
