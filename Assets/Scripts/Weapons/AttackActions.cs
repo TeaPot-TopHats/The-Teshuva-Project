@@ -1,5 +1,6 @@
 public enum AttackActions
 {
-    PRESS,
-    HOLD,
+	PRESS,
+	RELEASE,
+	HOLD,
 }

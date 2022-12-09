@@ -24,10 +24,18 @@ public class PlayerMovement : MonoBehaviour
 	
 	private void FixedUpdate()
 	{
+		// if(CanMove)
+		// {
+		// 	AnimationCheck();
+		// 	Rigid.MovePosition(Rigid.position + InputH.Movement * Stats.MOVESPEED * Time.fixedDeltaTime);
+		// }
 		if(CanMove)
 		{
 			AnimationCheck();
-			Rigid.MovePosition(Rigid.position + InputH.Movement * Stats.MOVESPEED * Time.fixedDeltaTime);
+			Vector2 targetSpeed = new Vector2(InputH.Movement.x * Stats.MOVESPEED, InputH.Movement.y * Stats.MOVESPEED);
+			Vector2 speedDif = targetSpeed - Rigid.velocity;
+			Vector2 actualSpeed = speedDif * new Vector2(12,12); // Change the vector values to change acceleration
+			Rigid.AddForce(actualSpeed);
 		}
 		else
 		{

@@ -9,11 +9,11 @@ public class PlayerInputHandler : MonoBehaviour
 	[SerializeField] private PlayerInput PlayerInputComponent;
 
 
-	[SerializeField] public Vector2 Movement{get; set;}
-	[SerializeField] private Vector2 LookPos{get; set;}
-	[SerializeField] public  Vector2 AimVector{get; set;}
-	[SerializeField] public float AimAngle{get; set;}
-	[SerializeField] public string CurrentInputDevice{ get; private set; }
+	[SerializeField] public Vector2 Movement {get; set;}
+	[SerializeField] private Vector2 LookPos {get; set;}
+	[SerializeField] public  Vector2 AimVector {get; set;}
+	[SerializeField] public float AimAngle {get; set;}
+	[SerializeField] public string CurrentInputDevice { get; private set; }
 
 
 	private PlayerCombat Combat;
