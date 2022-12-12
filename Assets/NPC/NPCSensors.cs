@@ -22,7 +22,7 @@ public class NPCSensors : MonoBehaviour
     void Update()
     {
         withinRange = Physics2D.OverlapCircle(AttackArea.position, attackRadius, PlayerLayer);
-        Debug.Log(withinRange);
+        //Debug.Log(withinRange);
     }
 
     /*public void SetLayer(Transform transform, SpriteRenderer renderer)

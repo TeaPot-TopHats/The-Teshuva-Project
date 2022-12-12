@@ -21,4 +21,8 @@ public class arrow : MonoBehaviour
 	{
 		transform.Translate(Vector3.up * speed * Time.fixedDeltaTime);
 	}
+	
+	private void OnCollisionEnter2D(Collision2D other) {
+		speed = 0;
+	}
 }

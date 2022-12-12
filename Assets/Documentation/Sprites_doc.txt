@@ -4,3 +4,4 @@ Dynamic Sprite Sorting:
 2. Set pivot points lower on the sprite
 3. On the objects' Sprite Renderer make sure the objects are on the same layer
 4. Set Sprite Sort Point in all objects to pivot
+5. Add a Sorting Group Component to Player

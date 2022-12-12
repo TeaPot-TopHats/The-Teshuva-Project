@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class NPCController : MonoBehaviour
 {
+    [SerializeField] Animator Animator;
     [SerializeField] NPCSensors Sensors;
-    public NPCStates CS { get; private set; }
-    event Action CA;
+    public NPCStates CurrentState { get; private set; }
+    event Action CurrentAction;
     [SerializeField] int health;
     [SerializeField] float speed;
     [SerializeField] float defaultSpeed;
@@ -29,21 +30,27 @@ public class NPCController : MonoBehaviour
 
     void Start()
     {
-        CS = NPCStates.IDLE;
-        CA = Idling;
+        CurrentState = NPCStates.IDLE;
+        CurrentAction = Idling;
     }
 
     void Update()
     {
-        CanAttack();
-        CA();
         
 
     }
 
     private void FixedUpdate()
     {
-        NPCActions.Move(RB, CP, speed);
+        CanAttack();
+        CurrentAction();
+        coolDown -= Time.deltaTime;
+        if (speed != 0)
+            Animator.SetBool("Moving", true);
+        else
+            Animator.SetBool("Moving", false);
+        NPCActions.Move(RB,Sensors.Player.GetComponent<Rigidbody2D>().position - RB.position, speed);
+        Debug.Log(CurrentState);
     }
 
     public void Idling()
@@ -51,7 +58,7 @@ public class NPCController : MonoBehaviour
         Count();
         if (timer>idleTime)
         {
-            SetState(NPCStates.MOVING, Chasing, 0, defaultSpeed);
+            SetState(NPCStates.MOVING, Chasing, defaultSpeed);
         }
     }
 
@@ -65,7 +72,7 @@ public class NPCController : MonoBehaviour
     {
         if (coolDown > 0)
         {
-            SetState(NPCStates.IDLE, Idling, 0, 0);
+            SetState(NPCStates.IDLE, Idling, 0);
         }
         
     }
@@ -76,9 +83,9 @@ public class NPCController : MonoBehaviour
         if(timer >= hurtTime)
         {
             if(health > 0)
-                SetState(NPCStates.IDLE, Idling, 0, 0);
+                SetState(NPCStates.IDLE, Idling, 0);
             else
-                SetState(NPCStates.DEAD, Dying, 0, 0);
+                SetState(NPCStates.DEAD, Dying, 0);
         }
     }
     public void Dying()
@@ -108,16 +115,17 @@ public class NPCController : MonoBehaviour
         if (coolDown <= 0 && Sensors.withinRange)
         {
             
-            SetState(NPCStates.ATTACKING, Attacking, 0, 0);
+            SetState(NPCStates.ATTACKING, Attacking, 0);
+            Animator.SetTrigger("Attack");
         }
         
     }
 
-    public void SetState( NPCStates state, Action action, float timer, float speed)
+    public void SetState( NPCStates state, Action action, float speed)
     {
-        CS = state;
-        CA = action;
-        this.timer = timer;
+        CurrentState = state;
+        CurrentAction = action;
+        this.timer = 0;
         this.speed = speed;
     }
 
@@ -129,6 +137,6 @@ public class NPCController : MonoBehaviour
     public void Damaged()
     {
         health--;
-        SetState(NPCStates.HURT, Hurting, 0, 0);
+        SetState(NPCStates.HURT, Hurting, 0);
     }
 }
