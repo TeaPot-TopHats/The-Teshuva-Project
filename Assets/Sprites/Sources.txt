@@ -2,3 +2,4 @@ Rogue: https://opengameart.org/content/animated-rogue
 Bow: Google Images
 Tree: https://opengameart.org/content/lpc-snowy-tree
 Bomb: https://opengameart.org/content/bomb-2
+Sword: https://opengameart.org/content/scimitar-sword

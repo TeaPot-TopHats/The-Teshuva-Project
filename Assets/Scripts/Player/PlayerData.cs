@@ -28,9 +28,9 @@ public class PlayerData : MonoBehaviour
 
 /*	
 	* Git Commit
-	Changed some variable names and added comments
-	Restructured some code in PlayerInputHandler script
-	Renamed PlayerSats to PlayerData
-	Added DeadZone to left stick
-	Moved animation and sprite checking to a separate script called AnimationChecker
+	Removed GameWeapons and GameAttacks scripts
+	Made WeaponAttack and Weapon into Scriptable Objects
+	Made basic test attacks and weapons
 */
+
+// ? Ranged types: Single, Spread, Burst, Spread Burst

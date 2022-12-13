@@ -1,11 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
-// Comments
-// New Input System = NIS
-
-
+// ! Depricated, do not use this script. It's here for reference
 
 public class player_movement : MonoBehaviour
 {

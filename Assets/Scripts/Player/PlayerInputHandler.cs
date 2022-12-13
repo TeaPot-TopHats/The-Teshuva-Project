@@ -20,7 +20,7 @@ public class PlayerInputHandler : MonoBehaviour
 	// [SerializeField] private float DeadZone = 0.1f;
 	
 	// Aiming
-	[SerializeField] private Vector2 AimCoord; // Stores the world location where the mouse or controller is pointing to
+	private Vector2 AimCoord; // Stores the world location where the mouse or controller is pointing to
 	[SerializeField] public  Vector2 AimVector {get; private set;} // Stores the vector that points to where we are aiming
 	[SerializeField] public float AimAngle {get; set;} // We convert the AimVector to location and we put the angle where we are aiming here in degrees
 	
@@ -67,7 +67,7 @@ public class PlayerInputHandler : MonoBehaviour
 	
 	public void OnFire(InputAction.CallbackContext context)
 	{
-		
+		Combat.Fire(context);
 	}
 
 

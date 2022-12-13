@@ -1,12 +1,19 @@
 using UnityEngine;
 
+/*
+	This script:
+	Handles sprites and animations
+*/
+
 public class AnimationHandler : MonoBehaviour
 {
-
 	private SpriteRenderer Sprite;
 	private Rigidbody2D Rigid;
 	private Animator Anim;
 	private PlayerInputHandler InputH;
+	private PlayerCombat Combat;
+
+	private SpriteRenderer WeaponSprite;
 	
 	private void Start()
 	{
@@ -14,6 +21,8 @@ public class AnimationHandler : MonoBehaviour
 		Rigid = GetComponent<Rigidbody2D>();
 		Anim = GetComponent<Animator>();
 		InputH = GetComponent<PlayerInputHandler>();
+		Combat = GetComponent<PlayerCombat>();
+		WeaponSprite = Combat.Weapon.GetComponent<SpriteRenderer>();
 	}
 	
 	private void FixedUpdate()
@@ -27,10 +36,13 @@ public class AnimationHandler : MonoBehaviour
 		if (InputH.AimVector.x < 0)
 		{
 			Sprite.flipX = true;
+			WeaponSprite.flipY = true;
 		}
 		else if (InputH.AimVector.x > 0)
 		{
 			Sprite.flipX = false;
+			WeaponSprite.flipY = false;
+			
 		}
 	}
 

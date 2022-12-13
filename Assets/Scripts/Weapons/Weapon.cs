@@ -1,18 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+[CreateAssetMenu(fileName = "Weapon", menuName = "Weapons/Weapon")]
+public class Weapon : ScriptableObject
+{	
+	[Header("Basic Info")]
+	public string WeaponID;
+	public string Name;
+	public string Description;
+	public Sprite sprite;
+	
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	[Header("Attacks")]
+	public WeaponAttack PrimaryAttack;
+	public WeaponAttack SecondaryAttack;
 }

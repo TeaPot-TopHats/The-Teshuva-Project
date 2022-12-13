@@ -49,15 +49,18 @@ public class PlayerCombat : MonoBehaviour
 	}	
 	
 	
-	public void Fire()
+	public void Fire(InputAction.CallbackContext context)
 	{
 		if (!canShoot){
 			return;
 		}
 		else
 		{
-			Instantiate(Arrow, ProjectileSpawn.transform.position, ProjectileSpawn.transform.rotation);
-			StartCoroutine(CanShoot());
+			if(context.canceled)
+			{
+				Instantiate(Arrow, ProjectileSpawn.transform.position, ProjectileSpawn.transform.rotation);
+				StartCoroutine(CanShoot());
+			}
 		}
 	}
 	

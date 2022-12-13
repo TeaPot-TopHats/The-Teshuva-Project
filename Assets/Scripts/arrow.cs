@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
+// ! Depricated, do not use this script. It's here for reference
+
 public class arrow : MonoBehaviour
 {
 	[SerializeField] private float speed = 6f; 

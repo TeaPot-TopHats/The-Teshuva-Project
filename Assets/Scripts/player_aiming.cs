@@ -2,13 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 
-
-
-// Comments
-// New Input System = NIS
-
-
-
+// ! Depricated, do not use this script. It's here for reference
 
 public class player_aiming : MonoBehaviour
 {

@@ -1,9 +1,10 @@
 using UnityEngine;
 
-[System.Serializable]
-public class WeaponAttack
+[CreateAssetMenu(fileName = "WeaponAttack", menuName = "Weapons/WeaponAttack")]
+public class WeaponAttack : ScriptableObject
 {
 	[Header("Basic Info")]
+	public string AttackID;
 	public string Name; // The name of the Weapon Attack
 	public string Description; // A short description of the Weapon Attack
 	public AttackTypes Type; // The type of attack, Melee or Ranged
@@ -19,8 +20,8 @@ public class WeaponAttack
 	public GameObject Projectile;  // Projectile prefab to use
 	public float ProjectileSpeed; // Speed of the projectile
 	public float ProjectileLifeTime; // How long before the projectile despawns
-	public float ProjectileTravelTime; // How long does it stay moving
-	public float RangeOfEffect;
+	public float ProjectileTravelTime; // How long does it stay moving for
+	public float AreaOfEffect;
 
 
 	[Header("Hold Options")]
@@ -29,8 +30,8 @@ public class WeaponAttack
 	
 	
 	[Header("Stats")]
-	public int DMG; // Base Damage
-	public int CRIT_CHANCE; // Change you'll crit. 0-100, represents %
-	public int CRIT_DMG; // How much damage does a crit have
-	public float RECHARGE; // How long before you can use the attack again
+	public int Damage; // Base Damage
+	public int CritChance; // Change you'll crit. 0-100, represents %
+	public int CritDamage; // How much damage does a crit have
+	public float Recharge; // How long before you can use the attack again
 }
