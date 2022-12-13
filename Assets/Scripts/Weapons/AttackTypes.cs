@@ -1,5 +1,7 @@
 public enum AttackTypes
 {
 	MELEE,
-	RANGE,
+	PROJECTILE,
+	THROWABLE,
+	SPELL,
 }

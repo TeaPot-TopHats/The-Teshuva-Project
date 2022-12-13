@@ -1,21 +1,33 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// This script gets all of the input and stores received input values
+/*
+	This script:
+	Handles the input received from the PlayerInput (which is an Input Actions Asset).
+	The behavior of PlayerInput is set to "Invoke Unity Events". The event triggers a function here and passes a context.
+	Stores the important information regarding input.
+	Performs some calculations to convert mouse position to the correct angle where the player should be looking at.
+*/
 
 public class PlayerInputHandler : MonoBehaviour
 {
-	[SerializeField] private Camera MainCamera;
+	// General components needed
+	[SerializeField] private Camera MainCamera; // Needed to convert the position of the mouse relatve to the camera to world coordinates
 	[SerializeField] private PlayerInput PlayerInputComponent;
 
-
-	[SerializeField] public Vector2 Movement {get; set;}
-	[SerializeField] private Vector2 LookPos {get; set;}
-	[SerializeField] public  Vector2 AimVector {get; set;}
-	[SerializeField] public float AimAngle {get; set;}
+	// Movement
+	[SerializeField] public Vector2 Movement;
+	// [SerializeField] private float DeadZone = 0.1f;
+	
+	// Aiming
+	[SerializeField] private Vector2 AimCoord; // Stores the world location where the mouse or controller is pointing to
+	[SerializeField] public  Vector2 AimVector {get; private set;} // Stores the vector that points to where we are aiming
+	[SerializeField] public float AimAngle {get; set;} // We convert the AimVector to location and we put the angle where we are aiming here in degrees
+	
+	// Device
 	[SerializeField] public string CurrentInputDevice { get; private set; }
 
-
+	// Scripts that this script triggers
 	private PlayerCombat Combat;
 	
 	
@@ -29,22 +41,27 @@ public class PlayerInputHandler : MonoBehaviour
 	{
 		if(CurrentInputDevice == "Keyboard&Mouse")
 		{
-			LookPos = MainCamera.ScreenToWorldPoint(context.ReadValue<Vector2>());
-			AimVector = LookPos - (Vector2)Combat.Weapon.transform.position;
+			AimCoord = MainCamera.ScreenToWorldPoint(context.ReadValue<Vector2>());
+			AimVector = AimCoord - (Vector2)Combat.Weapon.transform.position;
 			AimAngle = Mathf.Atan2(AimVector.y, AimVector.x) * Mathf.Rad2Deg;
 		}
 		else if (CurrentInputDevice == "Gamepad" && context.performed)
 		{
-			LookPos = context.ReadValue<Vector2>();
-			AimVector = LookPos;
+			AimCoord = context.ReadValue<Vector2>();
+			AimVector = AimCoord;
 			AimAngle = Mathf.Atan2(context.ReadValue<Vector2>().y, context.ReadValue<Vector2>().x) * Mathf.Rad2Deg;
 		}
 	}
-
+	
 
 	public void OnMove(InputAction.CallbackContext context)
 	{
 		Movement = context.ReadValue<Vector2>();
+		/*
+			! Note
+			! If using a controller; when pressing exactly up,down,left,or right; the value for that
+			! could be not zero but some really small number such as52E-05, instead. Be aware.
+		*/
 	}
 	
 	
@@ -62,21 +79,16 @@ public class PlayerInputHandler : MonoBehaviour
 	
 	public void OnControlsChanged()
 	{
-		CurrentInputDevice = PlayerInputComponent.currentControlScheme;
-		
-		if (PlayerInputComponent.currentControlScheme == "Keyboard&Mouse")
+		if(PlayerInputComponent.currentControlScheme == "Keyboard&Mouse" || PlayerInputComponent.currentControlScheme == "Gamepad")
 		{
-			//Debug.Log("Using Keyboard&Mouse");
-			CurrentInputDevice = PlayerInputComponent.currentControlScheme;
-		}
-		else if (PlayerInputComponent.currentControlScheme == "Gamepad")
-		{
-			//Debug.Log("Using Gamepad");
+			Debug.Log("Controls Changed: Now using " + PlayerInputComponent.currentControlScheme);
 			CurrentInputDevice = PlayerInputComponent.currentControlScheme;
 		}
 		else
 		{
-			//Debug.Log("Invalid Input Device: " + PlayerInputComponent.currentControlScheme);
+			Debug.Log("Input Device Not Supported: " + PlayerInputComponent.currentControlScheme);
+			CurrentInputDevice = "NotSupported";
 		}
 	}
+
 }

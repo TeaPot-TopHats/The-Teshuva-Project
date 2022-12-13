@@ -11,8 +11,8 @@ public class WeaponAttack
 
 
 	[Header("Melee Options")]
-	public float RANGE; // How wide the swing is
-	public float REACH; // How far away can it hit
+	public float MeleeRange; // How wide the swing is
+	public float MeleeReach; // How far away can it hit
 	
 	
 	[Header("Range Options")]
@@ -20,6 +20,7 @@ public class WeaponAttack
 	public float ProjectileSpeed; // Speed of the projectile
 	public float ProjectileLifeTime; // How long before the projectile despawns
 	public float ProjectileTravelTime; // How long does it stay moving
+	public float RangeOfEffect;
 
 
 	[Header("Hold Options")]
