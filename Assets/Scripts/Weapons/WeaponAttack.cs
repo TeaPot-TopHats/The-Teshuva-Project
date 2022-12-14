@@ -18,6 +18,10 @@ public class WeaponAttack : ScriptableObject
 	
 	[Header("Range Options")]
 	public GameObject Projectile;  // Projectile prefab to use
+	public float MultipleProjectilesRange;
+	public float MulipleProjectileNumber;
+	public float BurstSpeed;
+	public float NumberOfBursts;
 	public float ProjectileSpeed; // Speed of the projectile
 	public float ProjectileLifeTime; // How long before the projectile despawns
 	public float ProjectileTravelTime; // How long does it stay moving for
@@ -34,4 +38,9 @@ public class WeaponAttack : ScriptableObject
 	public int CritChance; // Change you'll crit. 0-100, represents %
 	public int CritDamage; // How much damage does a crit have
 	public float Recharge; // How long before you can use the attack again
+	
+	public WeaponAttack(WeaponAttack attack)
+	{
+		this.AttackID = attack.AttackID;
+	}
 }

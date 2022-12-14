@@ -28,9 +28,10 @@ public class PlayerData : MonoBehaviour
 
 /*	
 	* Git Commit
-	Removed GameWeapons and GameAttacks scripts
-	Made WeaponAttack and Weapon into Scriptable Objects
-	Made basic test attacks and weapons
+	Added the following WeaponAttack variables: MultipleProjectileNumber, MultipleProjectilesRange, BurstSpeed, NumberOfBursts
+	Rearranged some files in the editor's file structure
+	Added editor icons to scritable objects
 */
 
 // ? Ranged types: Single, Spread, Burst, Spread Burst
+// ADD: Make a copy constructor for WeaponAttack and PlayerStats
