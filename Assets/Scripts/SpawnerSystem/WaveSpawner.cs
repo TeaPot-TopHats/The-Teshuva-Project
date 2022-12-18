@@ -42,7 +42,7 @@ public class WaveSpawner : MonoBehaviour
         }
     }// end of start
 
-    /*
+    /*wa
      * 
      */
     void Update()
