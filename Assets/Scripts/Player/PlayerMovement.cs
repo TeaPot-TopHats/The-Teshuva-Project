@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if(canMove)
 		{
-			Vector2 targetSpeed = new Vector2(InputH.Movement.x * Data.MoveSpeed, InputH.Movement.y * Data.MoveSpeed);
+			Vector2 targetSpeed = new Vector2(InputH.Movement.x * Data.Stats.MoveSpeed, InputH.Movement.y * Data.Stats.MoveSpeed);
 			Vector2 speedDif = targetSpeed - Rigid.velocity;
 			Vector2 actualSpeed = speedDif * new Vector2(12,12); // Change the vector values to change acceleration
 			Rigid.AddForce(actualSpeed);

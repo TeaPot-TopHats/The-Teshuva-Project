@@ -16,5 +16,5 @@ MonoBehaviour:
   Name: BasicBow
   Description: Test
   sprite: {fileID: 21300000, guid: 09a39bf54a274d44db1e66860bfdc0f7, type: 3}
-  Primary: {fileID: 11400000, guid: 8da22cebb624a864491eb43cababb048, type: 2}
-  Secondary: {fileID: 11400000, guid: 8da22cebb624a864491eb43cababb048, type: 2}
+  PrimaryAttack: {fileID: 11400000, guid: 8da22cebb624a864491eb43cababb048, type: 2}
+  SecondaryAttack: {fileID: 11400000, guid: 8da22cebb624a864491eb43cababb048, type: 2}

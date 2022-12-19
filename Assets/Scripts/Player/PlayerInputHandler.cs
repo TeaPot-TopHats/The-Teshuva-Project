@@ -42,7 +42,7 @@ public class PlayerInputHandler : MonoBehaviour
 		if(CurrentInputDevice == "Keyboard&Mouse")
 		{
 			AimCoord = MainCamera.ScreenToWorldPoint(context.ReadValue<Vector2>());
-			AimVector = AimCoord - (Vector2)Combat.Weapon.transform.position;
+			AimVector = AimCoord - (Vector2)Combat.WeaponObject.transform.position;
 			AimAngle = Mathf.Atan2(AimVector.y, AimVector.x) * Mathf.Rad2Deg;
 		}
 		else if (CurrentInputDevice == "Gamepad" && context.performed)
@@ -60,14 +60,14 @@ public class PlayerInputHandler : MonoBehaviour
 		/*
 			! Note
 			! If using a controller; when pressing exactly up,down,left,or right; the value for that
-			! could be not zero but some really small number such as52E-05, instead. Be aware.
+			! may not be zero but some really small number such as 1.52E-05, instead. Be aware.
 		*/
 	}
 	
 	
 	public void OnFire(InputAction.CallbackContext context)
 	{
-		Combat.Fire(context);
+
 	}
 
 

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 332ff207116f7bf49b8be3c38fbbeef7, type: 3}
   m_Name: BasicMelee
   m_EditorClassIdentifier: 
-  AttackID: 1
+  ID: 1
   Name: BasicMelee
   Description: Test
   Type: 0
@@ -20,6 +20,10 @@ MonoBehaviour:
   MeleeRange: 3
   MeleeReach: 5
   Projectile: {fileID: 0}
+  MulipleProjectilesNumber: 0
+  MultipleProjectilesRange: 0
+  NumberOfBursts: 0
+  BurstSpeed: 0
   ProjectileSpeed: 0
   ProjectileLifeTime: 0
   ProjectileTravelTime: 0
@@ -28,5 +32,5 @@ MonoBehaviour:
   AddHoldDamage: 0
   Damage: 5
   CritChance: 5
-  CritDamage: 5
+  AddCritDamage: 0
   Recharge: 0.3

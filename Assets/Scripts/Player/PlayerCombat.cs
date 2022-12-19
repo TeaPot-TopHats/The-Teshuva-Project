@@ -15,7 +15,7 @@ public class PlayerCombat : MonoBehaviour
 	private PlayerInputHandler InputH;
 
 	// Needed for combat
-	[SerializeField] public GameObject Weapon;
+	[SerializeField] public GameObject WeaponObject;
 	[SerializeField] private GameObject Arrow;
 	[SerializeField] private GameObject ProjectileSpawn;
 	
@@ -44,7 +44,7 @@ public class PlayerCombat : MonoBehaviour
 		if(canLook)
 		{
 			rotation = Quaternion.AngleAxis(InputH.AimAngle, Vector3.forward);
-			Weapon.transform.rotation = rotation;
+			WeaponObject.transform.rotation = rotation;
 		}
 	}	
 	

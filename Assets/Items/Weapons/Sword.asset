@@ -16,5 +16,5 @@ MonoBehaviour:
   Name: Sword
   Description: Test
   sprite: {fileID: 738921369, guid: faae511d72ab3e6489b1de416dcdd91a, type: 3}
-  Primary: {fileID: 11400000, guid: 222892dc39df4e3448385b687e3fe42f, type: 2}
-  Secondary: {fileID: 11400000, guid: 222892dc39df4e3448385b687e3fe42f, type: 2}
+  PrimaryAttack: {fileID: 11400000, guid: 222892dc39df4e3448385b687e3fe42f, type: 2}
+  SecondaryAttack: {fileID: 11400000, guid: 222892dc39df4e3448385b687e3fe42f, type: 2}

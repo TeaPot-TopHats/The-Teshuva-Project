@@ -10,10 +10,13 @@ public class AnimationHandler : MonoBehaviour
 	private SpriteRenderer Sprite;
 	private Rigidbody2D Rigid;
 	private Animator Anim;
+	
 	private PlayerInputHandler InputH;
-	private PlayerCombat Combat;
+	[SerializeField] private GameObject WeaponObject;
+
 
 	private SpriteRenderer WeaponSprite;
+	
 	
 	private void Start()
 	{
@@ -21,15 +24,16 @@ public class AnimationHandler : MonoBehaviour
 		Rigid = GetComponent<Rigidbody2D>();
 		Anim = GetComponent<Animator>();
 		InputH = GetComponent<PlayerInputHandler>();
-		Combat = GetComponent<PlayerCombat>();
-		WeaponSprite = Combat.Weapon.GetComponent<SpriteRenderer>();
+		WeaponSprite = WeaponObject.GetComponent<SpriteRenderer>();
 	}
+	
 	
 	private void FixedUpdate()
 	{
 		SpriteFlipCheck();
 		MovementAnimationCheck();
 	}
+
 
 	private void SpriteFlipCheck()
 	{
@@ -45,6 +49,7 @@ public class AnimationHandler : MonoBehaviour
 			
 		}
 	}
+
 
 	private void MovementAnimationCheck()
 	{
