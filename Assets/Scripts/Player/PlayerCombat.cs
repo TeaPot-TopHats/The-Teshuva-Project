@@ -1,11 +1,9 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 /* 	
 	This script:
 	Handles aiming and combat
-	TODO: Add Finite State Machine for Player Actions
 	TODO: Add a Pause State
 */
 
@@ -16,28 +14,26 @@ public class PlayerCombat : MonoBehaviour
 
 	// Needed for combat
 	[SerializeField] public GameObject WeaponObject;
-	[SerializeField] private GameObject Arrow;
-	[SerializeField] private GameObject ProjectileSpawn;
+	[SerializeField] public GameObject ProjectileSpawn;
 	
 	// Aiming
 	private Quaternion rotation = new Quaternion();
 
 	// Control flow
 	public bool canLook = true;
-	private bool canShoot = true;
+
+	// State Machine
+	public CombatState InitialState = new InitialState();
+	public CombatState PrimaryAttackState = new PrimaryAttackState();
+	public CombatState SecondaryAttackState = new SecondaryAttackState();
+	public CombatState CurrentState;
 
 
 	private void Start()
 	{
 		InputH = GetComponent<PlayerInputHandler>();
+		CurrentState = InitialState;
 	}
-
-
-	private void Update()
-	{
-
-	}
-
 
 	private void FixedUpdate()
 	{
@@ -46,29 +42,18 @@ public class PlayerCombat : MonoBehaviour
 			rotation = Quaternion.AngleAxis(InputH.AimAngle, Vector3.forward);
 			WeaponObject.transform.rotation = rotation;
 		}
-	}	
-	
-	
-	public void Fire(InputAction.CallbackContext context)
-	{
-		if (!canShoot){
-			return;
-		}
-		else
-		{
-			if(context.canceled)
-			{
-				Instantiate(Arrow, ProjectileSpawn.transform.position, ProjectileSpawn.transform.rotation);
-				StartCoroutine(CanShoot());
-			}
-		}
 	}
 	
-	IEnumerator CanShoot()
+	public void TriggerAction(InputAction.CallbackContext button)
 	{
-		canShoot = false;
-		yield return new WaitForSeconds(0.3f);
-		canShoot = true;
+		CurrentState.PerformAction(this, button);
 	}
 	
+	
+	public void SwitchState(CombatState newState, InputAction.CallbackContext button)
+	{
+		CurrentState = newState;
+		newState.EnterState(this, button);
+	}
+
 }

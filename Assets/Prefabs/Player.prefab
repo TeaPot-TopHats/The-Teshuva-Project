@@ -420,7 +420,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponObject: {fileID: 8781958776370036428}
-  Arrow: {fileID: 7815742069272345287, guid: a55806bf0bf97f245aa159a96712f3c9, type: 3}
   ProjectileSpawn: {fileID: 8781958775324685266}
   canLook: 1
 --- !u!1 &8781958775964612220
@@ -517,7 +516,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8781958776370036429}
   - component: {fileID: 8781958776370036418}
-  - component: {fileID: 1895866644}
   m_Layer: 0
   m_Name: WeaponObject
   m_TagString: Untagged
@@ -593,15 +591,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1895866644
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8781958776370036428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f9a8c013392b40488d580ed3d48d3d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

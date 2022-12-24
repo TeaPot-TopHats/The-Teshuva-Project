@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour
 {
 	// General Components needed
 	private Rigidbody2D Rigid;
-	private Animator Animator;
 	private PlayerInputHandler InputH;
 	private PlayerData Data;
 	
@@ -20,7 +19,6 @@ public class PlayerMovement : MonoBehaviour
 	private void Start()
 	{
 		Rigid = GetComponent<Rigidbody2D>();
-		Animator = GetComponent<Animator>();
 		InputH = GetComponent<PlayerInputHandler>();
 		Data = GetComponent<PlayerData>();
 	}

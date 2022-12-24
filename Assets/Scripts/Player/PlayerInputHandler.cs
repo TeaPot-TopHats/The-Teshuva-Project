@@ -17,15 +17,14 @@ public class PlayerInputHandler : MonoBehaviour
 
 	// Movement
 	[SerializeField] public Vector2 Movement;
-	// [SerializeField] private float DeadZone = 0.1f;
 	
 	// Aiming
 	private Vector2 AimCoord; // Stores the world location where the mouse or controller is pointing to
-	[SerializeField] public  Vector2 AimVector {get; private set;} // Stores the vector that points to where we are aiming
-	[SerializeField] public float AimAngle {get; set;} // We convert the AimVector to location and we put the angle where we are aiming here in degrees
+	public Vector2 AimVector {get; private set;} // Stores the vector that points to where we are aiming
+	public float AimAngle {get; private set;} // We convert the AimVector to location and we put the angle where we are aiming here in degrees
 	
 	// Device
-	[SerializeField] public string CurrentInputDevice { get; private set; }
+	public string CurrentInputDevice { get; private set; }
 
 	// Scripts that this script triggers
 	private PlayerCombat Combat;
@@ -67,13 +66,13 @@ public class PlayerInputHandler : MonoBehaviour
 	
 	public void OnFire(InputAction.CallbackContext context)
 	{
-
+		Combat.TriggerAction(context);
 	}
 
 
 	public void OnSecondary(InputAction.CallbackContext context)
 	{
-
+        Combat.TriggerAction(context);
 	}
 	
 	

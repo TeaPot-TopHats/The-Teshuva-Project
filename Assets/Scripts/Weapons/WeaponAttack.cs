@@ -17,7 +17,7 @@ public class WeaponAttack : ScriptableObject
 	public string Name; // The name of the Weapon Attack
 	public string Description; // A short description of the Weapon Attack
 	public AttackType Type; // The type of attack, Melee or Ranged
-	public InteractionType Action; // Either press, action happens when you press. Or Hold action happens after holding for a certain period of time
+	public InteractionType Interaction; // Either press, action happens when you press. Or Hold action happens after holding for a certain period of time
 
 
 	[Header("Melee Options")]
@@ -65,7 +65,7 @@ public class WeaponAttack : ScriptableObject
 		this.Name = attack.Name;
 		this.Description = attack.Description;
 		this.Type = attack.Type;
-		this.Action = attack.Action;
+		this.Interaction = attack.Interaction;
 		
 		this.MeleeRange = attack.MeleeRange;
 		this.MeleeReach = attack.MeleeReach;
