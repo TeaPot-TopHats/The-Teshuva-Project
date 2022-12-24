@@ -19,9 +19,8 @@ public class PlayerStat : ScriptableObject
 
 
 	[Header("Range")]
-	public float MulipleProjectilesNumber;
-	public float MultipleProjectilesRange;
-	public float NumberOfBursts;
+	public float MultipleNumber;
+	public float MultipleRange;
 	public float AreaOfEffect;
 
 
@@ -30,7 +29,7 @@ public class PlayerStat : ScriptableObject
 
 
 	[Header("Base Attack")]
+	public float Recharge;
 	public int CritChance; 
 	public int AddCritDamage;
-	public float Recharge;
 }

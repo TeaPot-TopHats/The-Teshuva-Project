@@ -12,6 +12,7 @@ public class AnimationHandler : MonoBehaviour
 	private Animator Anim;
 	
 	private PlayerInputHandler InputH;
+	private Weapon CurrentWeapon;
 	[SerializeField] private GameObject WeaponObject;
 
 
@@ -24,7 +25,9 @@ public class AnimationHandler : MonoBehaviour
 		Rigid = GetComponent<Rigidbody2D>();
 		Anim = GetComponent<Animator>();
 		InputH = GetComponent<PlayerInputHandler>();
+		CurrentWeapon = GetComponent<PlayerData>().EquippedWeapon;
 		WeaponSprite = WeaponObject.GetComponent<SpriteRenderer>();
+		UpdateWeaponSprite();
 	}
 	
 	
@@ -79,4 +82,9 @@ public class AnimationHandler : MonoBehaviour
 		}
 	}
 
+
+	private void UpdateWeaponSprite()
+	{
+		WeaponSprite.sprite = CurrentWeapon.sprite;
+	}
 }

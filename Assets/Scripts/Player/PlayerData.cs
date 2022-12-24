@@ -13,8 +13,11 @@ public class PlayerData : MonoBehaviour
 
 /*	
 	* Git Commit
-	Added copy constructor in WeaponAttack script for future use with BFA
-	Added PlayerStat class
-	Restructured code, cleaned up some dependencies
-	Now the PlayerData holds player stats and the equipped weapon 
+	AnimationHandler can now update the weapon sprite
+	Removed burst attack stats
+*/
+
+/*
+	Get Assets by name
+	GameObject newObject = (GameObject)Instantiate(Resources.Load("Square"));
 */
