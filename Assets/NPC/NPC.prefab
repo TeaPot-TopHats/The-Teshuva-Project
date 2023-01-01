@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 4396570156071335336}
   m_Layer: 0
   m_Name: Square
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,9 +109,16 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
+<<<<<<< HEAD
   m_SortingOrder: 2
   m_Sprite: {fileID: -2029468492, guid: 576f7f8073230cf40b3b98037554696d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+=======
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6,
+    type: 3}
+  m_Color: {r: 0.056559276, g: 0.38679248, b: 0.2777524, a: 1}
+>>>>>>> c272039c7ad8ae38cda7d41ea873ec897fe4d5aa
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

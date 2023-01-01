@@ -1,0 +1,44 @@
+﻿1. Create a grid if not created.
+	-Right click on Hierarchy > 2D Objects > Tilemap > Rectangle
+2. Created 3 separate tilemaps. 
+	-One for base of the map (This tilemap will contain grass,road, and such. basically non coliders)
+	-Second for decoration of the base tilemap but not collidering objects
+	-Thrid is for colliding objects such as house, rock, fence, statue, and trees...
+3. Open Tile Palette interface
+	- Go to Window > 2D > Tile Palette. The tile palette will all the peices for designing the map.
+	- If you are using premaded assest it will be pre-sliceed to the desired size. If not you need to slice them appropriately.
+	- If the artwork is made by you it might not be sliced correctly. So head to the edit sprite and check.
+4. Tileset Settings
+	-Set "Pixels Per Unit" to 32
+	-Set "Filter Mode" To Point (No filter)
+	-Set "Compression" To None
+	- Apply Changes!!!!!
+5. Slicing Artwork
+	- Navigate to the location of saved artwork > In the inspector find "Edit Sprite" > Slice the sprite to the approorate size 16x16,32x32,64x64, and such. This will be agree on in a team meeting.
+		to do that 
+	- Navigate to Slice > change type to Gird by cell size and change to the appropriate size. 
+6. Adding artwork to the tile palette
+	- Navigate to Create New Palette > select correct location to save the tile palette in > find you artwork and drag it into the newly crated palette.
+
+
+
+
+
+
+												*********************************** IMPORTANT ***********************************
+
+													MAKE SURE YOU ARE WORKING IN THE CORRECT TILEMAP WHEN WORKING ON THE MAP.
+														ALWAYS CHECK WHICH TILEMAP YOU ARE WORKING ON IN THE TILE PALETTE
+															BEFORE DOING ANY CHANGES. YOU CAN CHECK WHICH TILEMAP YOU
+																ARE WORKING ON IN THE TILE PALETTE INTERFACE UNDER
+																				"ACTIVE TILEMAP"
+
+
+
+
+
+
+
+
+											*****************************************************************************************
+							   					IF ANY STEP YOU THINK NEED TO BE ADD, DO SO AND COMMENT ON IT IN THE NEXT MEETING

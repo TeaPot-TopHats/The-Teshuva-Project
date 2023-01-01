@@ -1,59 +1,38 @@
 using UnityEngine;
 
-// This script moves the player
+/*
+	This script:
+	Handles player movement
+*/
 
 public class PlayerMovement : MonoBehaviour
 {
+	// General Components needed
 	private Rigidbody2D Rigid;
-	private Animator Animator;
 	private PlayerInputHandler InputH;
-	private PlayerStats Stats;
+	private PlayerData Data;
 	
-	
-	public bool CanMove = true;
+	// Control flow
+	public bool canMove = true;
 	
 
 	private void Start()
 	{
 		Rigid = GetComponent<Rigidbody2D>();
-		Animator = GetComponent<Animator>();
 		InputH = GetComponent<PlayerInputHandler>();
-		Stats = GetComponent<PlayerStats>();
+		Data = GetComponent<PlayerData>();
 	}
 	
 	
 	private void FixedUpdate()
 	{
-		// if(CanMove)
-		// {
-		// 	AnimationCheck();
-		// 	Rigid.MovePosition(Rigid.position + InputH.Movement * Stats.MOVESPEED * Time.fixedDeltaTime);
-		// }
-		if(CanMove)
+		if(canMove)
 		{
-			AnimationCheck();
-			Vector2 targetSpeed = new Vector2(InputH.Movement.x * Stats.MOVESPEED, InputH.Movement.y * Stats.MOVESPEED);
+			Vector2 targetSpeed = new Vector2(InputH.Movement.x * Data.Stats.MoveSpeed, InputH.Movement.y * Data.Stats.MoveSpeed);
 			Vector2 speedDif = targetSpeed - Rigid.velocity;
 			Vector2 actualSpeed = speedDif * new Vector2(12,12); // Change the vector values to change acceleration
 			Rigid.AddForce(actualSpeed);
 		}
-		else
-		{
-			Animator.SetBool("IsMoving", false);
-		}
 	}
 
-
-	private void AnimationCheck()
-	{
-		// Walk animation
-		if (InputH.Movement  == Vector2.zero)
-		{
-			Animator.SetBool("IsMoving", false);
-		}
-		else
-		{
-			Animator.SetBool("IsMoving", true);
-		}
-	}
 }

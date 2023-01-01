@@ -1,85 +1,59 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// This script handles aiming and combat
-// TODO: Add Finite State Machine for Player Actions
-// TODO: Add a Pause State
+/* 	
+	This script:
+	Handles aiming and combat
+	TODO: Add a Pause State
+*/
 
 public class PlayerCombat : MonoBehaviour
 {
-	[SerializeField] public GameObject Weapon;
-	[SerializeField] private GameObject Arrow;
-	[SerializeField] private GameObject ProjectileSpawn;
-
-	
-	private Rigidbody2D Rigid;
-	private SpriteRenderer Sprite;
+	// General Components needed
 	private PlayerInputHandler InputH;
 
-
+	// Needed for combat
+	[SerializeField] public GameObject WeaponObject;
+	[SerializeField] public GameObject ProjectileSpawn;
+	
+	// Aiming
 	private Quaternion rotation = new Quaternion();
 
-
+	// Control flow
 	public bool canLook = true;
-	private bool canShoot = true;
+
+	// State Machine
+	public CombatState InitialState = new InitialState();
+	public CombatState PrimaryAttackState = new PrimaryAttackState();
+	public CombatState SecondaryAttackState = new SecondaryAttackState();
+	public CombatState CurrentState;
 
 
 	private void Start()
 	{
-		Rigid = GetComponent<Rigidbody2D>();
-		Sprite = GetComponent<SpriteRenderer>();
 		InputH = GetComponent<PlayerInputHandler>();
+		CurrentState = InitialState;
 	}
-
-
-	private void Update()
-	{
-
-	}
-
 
 	private void FixedUpdate()
 	{
 		if(canLook)
 		{
 			rotation = Quaternion.AngleAxis(InputH.AimAngle, Vector3.forward);
-			Weapon.transform.rotation = rotation;
-			SpriteFlipCheck();
-		}
-	}	
-	
-	
-	public void Fire()
-	{
-		if (!canShoot){
-			return;
-		}
-		else
-		{
-			Instantiate(Arrow, ProjectileSpawn.transform.position, ProjectileSpawn.transform.rotation);
-			StartCoroutine(CanShoot());
+			WeaponObject.transform.rotation = rotation;
 		}
 	}
 	
-	IEnumerator CanShoot()
+	public void TriggerAction(InputAction.CallbackContext button)
 	{
-		canShoot = false;
-		yield return new WaitForSeconds(0.3f);
-		canShoot = true;
+		CurrentState.PerformAction(this, button);
+	}
+	
+	
+	public void SwitchState(CombatState newState, InputAction.CallbackContext button)
+	{
+		CurrentState = newState;
+		newState.EnterState(this, button);
 	}
 
-
-	private void SpriteFlipCheck()
-	{
-		if (InputH.AimVector.x < 0)
-		{
-			Sprite.flipX = true;
-		}
-		else if (InputH.AimVector.x > 0)
-		{
-			Sprite.flipX = false;
-		}
-	}
-	
 }

@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 332ff207116f7bf49b8be3c38fbbeef7, type: 3}
+  m_Name: HoldArrow
+  m_EditorClassIdentifier: 
+  ID: 2
+  Name: HoldArrow
+  Description: Test
+  Type: 1
+  Action: 2
+  MeleeRange: 0
+  MeleeReach: 0
+  Projectile: {fileID: 7815742069272345287, guid: a55806bf0bf97f245aa159a96712f3c9,
+    type: 3}
+  MulipleProjectilesNumber: 0
+  MultipleProjectilesRange: 0
+  NumberOfBursts: 0
+  BurstSpeed: 0
+  ProjectileSpeed: 10
+  ProjectileLifeTime: 7
+  ProjectileTravelTime: 7
+  AreaOfEffect: 0
+  HoldTime: 0.4
+  AddHoldDamage: 4
+  Damage: 5
+  CritChance: 5
+  AddCritDamage: 0
+  Recharge: 0.3
