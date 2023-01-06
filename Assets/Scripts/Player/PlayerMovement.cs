@@ -33,6 +33,10 @@ public class PlayerMovement : MonoBehaviour
 			Vector2 actualSpeed = speedDif * new Vector2(12,12); // Change the vector values to change acceleration
 			Rigid.AddForce(actualSpeed);
 		}
+		else
+		{
+			Rigid.velocity = Vector2.zero;
+		}
 	}
 
 }

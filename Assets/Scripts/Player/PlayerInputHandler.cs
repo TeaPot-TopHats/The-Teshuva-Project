@@ -72,8 +72,13 @@ public class PlayerInputHandler : MonoBehaviour
 
 	public void OnSecondary(InputAction.CallbackContext context)
 	{
-        Combat.TriggerAction(context);
+		Combat.TriggerAction(context);
 	}
+
+    public void OnDash(InputAction.CallbackContext context)
+    {
+        Combat.TriggerAction(context);
+    }
 	
 	
 	public void OnControlsChanged()

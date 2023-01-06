@@ -11,16 +11,19 @@ public class PlayerCombat : MonoBehaviour
 {
 	// General Components needed
 	private PlayerInputHandler InputH;
+	private PlayerData Data;
 
 	// Needed for combat
 	[SerializeField] public GameObject WeaponObject;
 	[SerializeField] public GameObject ProjectileSpawn;
+	private Weapon EquippedWeapon;
 	
 	// Aiming
 	private Quaternion rotation = new Quaternion();
 
 	// Control flow
 	public bool canLook = true;
+	public bool canAttack = true;
 
 	// State Machine
 	public CombatState InitialState = new InitialState();
@@ -33,27 +36,35 @@ public class PlayerCombat : MonoBehaviour
 	{
 		InputH = GetComponent<PlayerInputHandler>();
 		CurrentState = InitialState;
+		Data = GetComponent<PlayerData>();
+		EquippedWeapon = Data.EquippedWeapon;
 	}
+
 
 	private void FixedUpdate()
 	{
-		if(canLook)
+		if (canLook)
 		{
 			rotation = Quaternion.AngleAxis(InputH.AimAngle, Vector3.forward);
 			WeaponObject.transform.rotation = rotation;
 		}
+		CurrentState.FixedUpdateState(this);
 	}
+	
 	
 	public void TriggerAction(InputAction.CallbackContext button)
 	{
-		CurrentState.PerformAction(this, button);
+		if(canAttack)
+		{
+			CurrentState.PerformAction(this, button);
+		}
 	}
 	
 	
 	public void SwitchState(CombatState newState, InputAction.CallbackContext button)
 	{
 		CurrentState = newState;
-		newState.EnterState(this, button);
+		newState.EnterState(this, button, EquippedWeapon);
+		newState.PerformAction(this, button);
 	}
-
 }

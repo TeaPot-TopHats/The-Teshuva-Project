@@ -29,6 +29,7 @@ public class WeaponAttack : ScriptableObject
 	[Header("Range Options")]
 	
 	public GameObject Projectile;  // Projectile prefab to use
+	public GameObject HoldProjectile;
 	
 	public float MultipleNumber; // The number of projectiles
 	public float MultipleRange; // The range where those projectiles will go

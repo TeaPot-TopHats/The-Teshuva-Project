@@ -123,6 +123,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &1826017761 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1635145074, guid: 406b0e29b0b388e4180503c70c0c1521,
+    type: 3}
+  m_PrefabInstance: {fileID: 8781958775312577754}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e34160834e230894480b499916b2c7a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2962642460119001813
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -199,6 +211,56 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8781958775869743530, guid: 406b0e29b0b388e4180503c70c0c1521,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8781958775869743530, guid: 406b0e29b0b388e4180503c70c0c1521,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_ActionId
+      value: 3fa885ec-e96b-44d3-a712-91a9d9efcee4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8781958775869743530, guid: 406b0e29b0b388e4180503c70c0c1521,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_ActionName
+      value: Player/Dash[/Keyboard/shift,/XInputControllerWindows/buttonSouth]
+      objectReference: {fileID: 0}
+    - target: {fileID: 8781958775869743530, guid: 406b0e29b0b388e4180503c70c0c1521,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8781958775869743530, guid: 406b0e29b0b388e4180503c70c0c1521,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8781958775869743530, guid: 406b0e29b0b388e4180503c70c0c1521,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1826017761}
+    - target: {fileID: 8781958775869743530, guid: 406b0e29b0b388e4180503c70c0c1521,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8781958775869743530, guid: 406b0e29b0b388e4180503c70c0c1521,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnDash
+      objectReference: {fileID: 0}
+    - target: {fileID: 8781958775869743530, guid: 406b0e29b0b388e4180503c70c0c1521,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerInputHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8781958775869743530, guid: 406b0e29b0b388e4180503c70c0c1521,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8781958775869743539, guid: 406b0e29b0b388e4180503c70c0c1521,
         type: 3}
       propertyPath: m_Name

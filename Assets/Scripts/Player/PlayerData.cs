@@ -13,8 +13,13 @@ public class PlayerData : MonoBehaviour
 
 /*	
 	* Git Commit
-	ActionType is now called InteractionType
-	Added PlayerCombat state machine and added InitialState, PrimaryAttackState, and SecondaryAttackState
+	Added HoldProjectile to weapon attacks
+	Finished state machine with primary and secondary attack states, both functional
+	Combat states can differentiate between hold and press action types
+	Yet to add BFA for performing the attacks but added projectile spawning for testing
+	
+	TODO
+	Implement BFA
 */
 
 
