@@ -13,13 +13,12 @@ public class PlayerData : MonoBehaviour
 
 /*	
 	* Git Commit
-	Added HoldProjectile to weapon attacks
-	Finished state machine with primary and secondary attack states, both functional
-	Combat states can differentiate between hold and press action types
-	Yet to add BFA for performing the attacks but added projectile spawning for testing
+	Made BFA script and added stat calculation (adds up current player stats and weapons stats to help calculate final damage).
+	Added isHeldReady to Primary and Secondary attack states to indicate when the the attack is ready (this might need to be implemented in another way, unity events?).
+	
 	
 	TODO
-	Implement BFA
+	Finish BFA
 */
 
 

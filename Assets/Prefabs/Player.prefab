@@ -51,6 +51,7 @@ GameObject:
   - component: {fileID: 4711091670001152225}
   - component: {fileID: 1635145073}
   - component: {fileID: 1635145075}
+  - component: {fileID: 4172178662194496858}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -347,6 +348,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e2198083-1446-402b-ae08-6cff16469804
     m_ActionName: Player/Secondary[/XInputControllerWindows/leftTrigger,/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1635145074}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
+        m_MethodName: OnDash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3fa885ec-e96b-44d3-a712-91a9d9efcee4
+    m_ActionName: Player/Dash[/Keyboard/shift,/XInputControllerWindows/buttonSouth]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -422,6 +439,19 @@ MonoBehaviour:
   WeaponObject: {fileID: 8781958776370036428}
   ProjectileSpawn: {fileID: 8781958775324685266}
   canLook: 1
+  canAttack: 1
+--- !u!114 &4172178662194496858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8781958775869743539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 088f77b64a1cc314dab24b0b5a34e168, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8781958775964612220
 GameObject:
   m_ObjectHideFlags: 0

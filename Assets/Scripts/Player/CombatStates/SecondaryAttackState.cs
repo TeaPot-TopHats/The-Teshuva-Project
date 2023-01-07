@@ -60,14 +60,14 @@ public class SecondaryAttackState : CombatState
 
 	private void Press(PlayerCombat combat, InputAction.CallbackContext button)
 	{
-		if (button.started && button.action.name == "Secondary")
-		{
+		if (button.started)// && button.action.name == "Secondary") <- this is here for reference
+        {
 			Debug.Log("S: Press Started");
 			rapidFire = true;
 			canSwitch = false;
 		}
-		else if (button.canceled && button.action.name == "Secondary")
-		{
+		else if (button.canceled)// && button.action.name == "Secondary") <- this is here for reference
+        {
 			Debug.Log("S: Press Stopped");
 			rapidFire = false;
 			canSwitch = true;
@@ -84,6 +84,7 @@ public class SecondaryAttackState : CombatState
 				Debug.Log("S: Started");
 				canSwitch = false;
 				wasHeld = true;
+				combat.StartCoroutine(HoldTimer());
 			}
 			if (button.canceled && button.duration >= holdTime && wasHeld)
 			{
@@ -110,6 +111,15 @@ public class SecondaryAttackState : CombatState
 		canShoot = false;
 		yield return new WaitForSeconds(rechargeTime);
 		canShoot = true;
+	}
+	
+	IEnumerator HoldTimer()
+	{
+		yield return new WaitForSeconds(holdTime);
+		if (wasHeld)
+		{
+			Debug.Log("S: Held READY");
+		}
 	}
 	
 }

@@ -75,10 +75,10 @@ public class PlayerInputHandler : MonoBehaviour
 		Combat.TriggerAction(context);
 	}
 
-    public void OnDash(InputAction.CallbackContext context)
-    {
-        Combat.TriggerAction(context);
-    }
+	public void OnDash(InputAction.CallbackContext context)
+	{
+		Combat.TriggerAction(context);
+	}
 	
 	
 	public void OnControlsChanged()

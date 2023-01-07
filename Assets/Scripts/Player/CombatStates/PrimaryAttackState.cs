@@ -60,13 +60,13 @@ public class PrimaryAttackState : CombatState
 	
 	private void Press(PlayerCombat combat, InputAction.CallbackContext button)
 	{
-		if (button.started && button.action.name == "Primary")
+		if (button.started)// && button.action.name == "Primary") <- this is here for reference
 		{
 			Debug.Log("P: Press Started");
 			rapidFire = true;
 			canSwitch = false;
 		}
-		else if (button.canceled && button.action.name == "Primary")
+		else if (button.canceled)// && button.action.name == "Primary") <- this is here for reference
 		{
 			Debug.Log("P: Press Stopped");
 			rapidFire = false;
@@ -84,6 +84,7 @@ public class PrimaryAttackState : CombatState
 				Debug.Log("P: Started");
 				canSwitch = false;
 				wasHeld = true;
+				combat.StartCoroutine(HoldTimer());
 			}
 			if (button.canceled && button.duration >= holdTime && wasHeld)
 			{
@@ -110,6 +111,12 @@ public class PrimaryAttackState : CombatState
 		canShoot = false;
 		yield return new WaitForSeconds(rechargeTime);
 		canShoot = true;
+	}
+
+	IEnumerator HoldTimer()
+	{
+		yield return new WaitForSeconds(holdTime);
+        Debug.Log("P: Held READY");
 	}
 
 }
