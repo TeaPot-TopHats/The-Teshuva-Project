@@ -1,19 +1,21 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 /*
-	This script:
+	! This script:
 	Handles the input received from the PlayerInput (which is an Input Actions Asset).
 	The behavior of PlayerInput is set to "Invoke Unity Events". The event triggers a function here and passes a context.
 	Stores the important information regarding input.
 	Performs some calculations to convert mouse position to the correct angle where the player should be looking at.
 */
 
+
 public class PlayerInputHandler : MonoBehaviour
 {
 	// General components needed
 	[SerializeField] private Camera MainCamera; // Needed to convert the position of the mouse relatve to the camera to world coordinates
-	[SerializeField] private PlayerInput PlayerInputComponent;
+	[SerializeField] private PlayerInput PlayerInputComponent; // Component made by the new input system
 
 	// Movement
 	[SerializeField] public Vector2 Movement;
@@ -26,7 +28,7 @@ public class PlayerInputHandler : MonoBehaviour
 	// Device
 	public string CurrentInputDevice { get; private set; }
 
-	// Scripts that this script triggers
+	// Scripts that this script calls to
 	private PlayerCombat Combat;
 	
 	
@@ -58,7 +60,7 @@ public class PlayerInputHandler : MonoBehaviour
 		Movement = context.ReadValue<Vector2>();
 		/*
 			! Note
-			! If using a controller; when pressing exactly up,down,left,or right; the value for that
+			! If using a controller; when pressing exactly up, down, left, or right; the value for that
 			! may not be zero but some really small number such as 1.52E-05, instead. Be aware.
 		*/
 	}

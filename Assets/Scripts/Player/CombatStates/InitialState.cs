@@ -26,5 +26,9 @@ public class InitialState : CombatState
 		{
 			combat.SwitchState(combat.SecondaryAttackState, button);
 		}
+		else if (button.action.name == "Dash")
+		{
+			
+		}
 	}
 }

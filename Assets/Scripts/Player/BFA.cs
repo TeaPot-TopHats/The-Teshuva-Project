@@ -9,13 +9,18 @@ using UnityEngine;
 public class BFA : MonoBehaviour
 {
 	private WeaponAttack attack;
-	private bool wasHeld;
+	private bool isStrong;
+	private PlayerCombat combat;
 	
-	public void PerformAttack(PlayerStat currentStats, WeaponAttack attack, bool wasHeld)
+	private void Start() {
+		combat = GetComponent<PlayerCombat>();
+	}
+	
+	public void PerformAttack(PlayerStat currentStats, WeaponAttack attack, bool isStrong)
 	{
 		CalculateStats(currentStats, attack);
-		this.wasHeld = wasHeld;
-		ActuallyDoAttack(wasHeld);
+		this.isStrong = isStrong;
+		ActuallyDoAttack();
 	}
 	
 	private void CalculateStats(PlayerStat stats, WeaponAttack attack)
@@ -30,40 +35,41 @@ public class BFA : MonoBehaviour
 		
 		this.attack.AddHoldDamage += stats.AddHoldDamage;
 		
+		this.attack.Knockback += stats.Knockback;
 		this.attack.CritChance += stats.CritChance;
 		this.attack.AddCritDamage += stats.AddCritDamage;
 		this.attack.Recharge += stats.Recharge;
-	} 
+	}
 	
-	private void ActuallyDoAttack(bool wasHeld)
+	private void ActuallyDoAttack()
 	{
 		 if (attack.Type == AttackType.MELEE)
 		 {
-		 	Melee(wasHeld);
+		 	Melee();
 		 }
 		if (attack.Type == AttackType.RANGE_SINGLE)
 		{
-			RangeSingle(wasHeld);
+			RangeSingle();
 		}
 		if (attack.Type == AttackType.RANGE_MULTIPLE)
 		{
-			RangeMultiple(wasHeld);
+			RangeMultiple();
 		}
 	}
 	
-	private void Melee(bool wasHeld)
+	private void Melee()
 	{
 		 
 	}
 	
-	private void RangeSingle(bool wasHeld)
+	private void RangeSingle()
+	{
+
+	}
+	
+	private void RangeMultiple()
 	{
 		
 	}
-	
-	private void RangeMultiple(bool wasHeld)
-	{
-		
-	}
-	
+
 }

@@ -50,6 +50,7 @@ public class WeaponAttack : ScriptableObject
 	[Header("Stats")]
 	
 	public int AttackDamage; // Base Damage
+	public float Knockback; // When the enemy gets hit how much do they get kicked back
 	public float Recharge; // How long before you can use the attack again
 	
 	public int CritChance; // Change you'll crit. 0-100, represents %
@@ -83,6 +84,7 @@ public class WeaponAttack : ScriptableObject
 		this.AddHoldDamage = attack.AddHoldDamage;
 		
 		this.AttackDamage = attack.AttackDamage;
+		this.Knockback = attack.Knockback;
 		this.Recharge = attack.Recharge;
 		this.CritChance = attack.CritChance;
 		this.AddCritDamage = attack.AddCritDamage;

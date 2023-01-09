@@ -29,6 +29,7 @@ public class PlayerStat : ScriptableObject
 
 
 	[Header("Base Attack")]
+	public float Knockback;
 	public float Recharge;
 	public int CritChance; 
 	public int AddCritDamage;
@@ -52,6 +53,7 @@ public class PlayerStat : ScriptableObject
 		
 		this.AddHoldDamage = stat.AddHoldDamage;
 		
+		this.Knockback = stat.Knockback;
 		this.Recharge = stat.Recharge;
 		this.CritChance = stat.CritChance;
 		this.AddCritDamage = stat.AddCritDamage;

@@ -5,16 +5,16 @@ using UnityEngine.InputSystem;
 public class PrimaryAttackState : CombatState
 {
 	// Control flow
-	private bool canShoot = true;
-	private bool wasHeld = false;
-	private bool rapidFire = false;
-	private bool canSwitch = true;
+	private bool canShoot = true; // Can we perform an attack?
+	private bool wasHeld = false; // Did we perform a strong attack?
+	private bool rapidFire = false; // If the attack type is press, and we hold the mouse the attack happens as soon as it can
+	private bool canSwitch = true; // Are we allowed to switch to another state?
 
 	// Attack info		
-	private WeaponAttack attack;
-	private InteractionType interaction;
-	private float holdTime;
-	private float rechargeTime;
+	private WeaponAttack attack; // Stores the primary attack
+	private InteractionType interaction; // Stores the interaction of the attack
+	private float holdTime; // Stores the hold time that determines if the attack is strong or normal
+	private float rechargeTime; // Stores the recharge time for the attack
 	
 	
 	public override void EnterState(PlayerCombat combat, InputAction.CallbackContext button, Weapon weapon)
@@ -113,10 +113,14 @@ public class PrimaryAttackState : CombatState
 		canShoot = true;
 	}
 
+
 	IEnumerator HoldTimer()
 	{
 		yield return new WaitForSeconds(holdTime);
-        Debug.Log("P: Held READY");
+        if (wasHeld)
+        {
+            Debug.Log("S: Held READY");
+        }
 	}
 
 }

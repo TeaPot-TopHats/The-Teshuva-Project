@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 /* 	
-	This script:
+	! This script:
 	Handles aiming and combat
 	TODO: Add a Pause State
 */
+
 
 public class PlayerCombat : MonoBehaviour
 {
@@ -15,11 +17,11 @@ public class PlayerCombat : MonoBehaviour
 
 	// Needed for combat
 	[SerializeField] public GameObject WeaponObject;
-	[SerializeField] public GameObject ProjectileSpawn;
+	[SerializeField] public GameObject ProjectileSpawn; // ! Temp
 	private Weapon EquippedWeapon;
 	
 	// Aiming
-	private Quaternion rotation = new Quaternion();
+	private Quaternion rotation = new Quaternion(); // Stores rotation calculated from PlayerInputHandler (see fixed update)
 
 	// Control flow
 	public bool canLook = true;
@@ -29,6 +31,7 @@ public class PlayerCombat : MonoBehaviour
 	public CombatState InitialState = new InitialState();
 	public CombatState PrimaryAttackState = new PrimaryAttackState();
 	public CombatState SecondaryAttackState = new SecondaryAttackState();
+	// ! => Dash state goes here
 	public CombatState CurrentState;
 
 
@@ -41,17 +44,22 @@ public class PlayerCombat : MonoBehaviour
 	}
 
 
-	private void FixedUpdate()
-	{
+	private void Update() {
 		if (canLook)
 		{
 			rotation = Quaternion.AngleAxis(InputH.AimAngle, Vector3.forward);
 			WeaponObject.transform.rotation = rotation;
 		}
+	}
+
+
+	private void FixedUpdate()
+	{
 		CurrentState.FixedUpdateState(this);
 	}
 	
 	
+	// State Machine
 	public void TriggerAction(InputAction.CallbackContext button)
 	{
 		if(canAttack)
@@ -65,6 +73,7 @@ public class PlayerCombat : MonoBehaviour
 	{
 		CurrentState = newState;
 		newState.EnterState(this, button, EquippedWeapon);
-		newState.PerformAction(this, button);
+		newState.PerformAction(this, button); // ! We perform so when we attack and switch state the attack gets performed
+		// ! I decided to do this (PerformAction) here because it should be done like this for all states
 	}
 }
