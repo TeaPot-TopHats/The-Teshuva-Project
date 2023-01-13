@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 /**
  * A class to choose random upgrade from out created upgrades and present them to the player in choice of 3 upgrades and apply those upgrades. 
@@ -42,10 +42,13 @@ public class UpgradeSystem : MonoBehaviour
 
         }
         // Present the upgrade choices to the player 
-        for (int i =0; i < upgradeChoices.Count; i++)   
+        for (int i = 0; i < upgradeChoices.Count; i++)   
         {
             // creating button UI for upgrades
             GameObject button = Instantiate(upgradeButtonPrefap, upgradePanel.transform);
+            button.GetComponent<Image>().sprite = upgradeChoices[i].Icon;
+            int index = i;
+            button.GetComponent<Button>().onClick.AddListener(() => ApplyUpgrade(upgradeChoices[index]));
         }
 
     }// end of level up 
@@ -53,15 +56,15 @@ public class UpgradeSystem : MonoBehaviour
     public void ApplyUpgrade(Upgrades upgrade)
     {
         // Apply the upgrade to the player's character
-        Debug.Log("Player Stats before upgrades" + stat.Health + stat.Attack + stat.MoveSpeed);
+        Debug.Log("Player Stats before upgrades" + stat.Health + stat.Strength + stat.MoveSpeed);
         GameObject player = GameObject.Find("Player"); // find player object
         /*
          * apply Upgrades
          */
         player.GetComponent<PlayerStat>().Health += upgrade.healthIncrease;
-        player.GetComponent<PlayerStat>().Attack += upgrade.damageIncrease;
+        player.GetComponent<PlayerStat>().Strength += upgrade.damageIncrease;
         player.GetComponent<PlayerStat>().MoveSpeed += upgrade.speedIncrease;
 
-        Debug.Log("Player Stats AFTER upgrades" + stat.Health + stat.Attack + stat.MoveSpeed);
+        Debug.Log("Player Stats AFTER upgrades" + stat.Health + stat.Strength + stat.MoveSpeed);
     }
 }

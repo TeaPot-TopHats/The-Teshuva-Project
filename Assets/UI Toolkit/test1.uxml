@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Button text="Button" display-tooltip-when-elided="true" style="position: relative; flex-direction: row; flex-wrap: wrap-reverse; width: auto; -unity-text-outline-color: rgba(200, 73, 73, 255); background-color: rgb(255, 202, 54); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); color: rgba(255, 0, 0, 255);" />
+    <ui:Button text="Button" display-tooltip-when-elided="true" />
+    <ui:Button text="Button" display-tooltip-when-elided="true" />
+</ui:UXML>
