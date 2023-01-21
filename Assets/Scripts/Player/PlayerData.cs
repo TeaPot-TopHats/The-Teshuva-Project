@@ -16,11 +16,13 @@ public class PlayerData : MonoBehaviour
 
 /*	
 	* Git Commit
-	Added Kockback to stats
-	Added MeleeTest script to test how to do the range code for melee attacks (trying meshes right now with custom colliders)
+	Added dash state
+	Cleaned up soem stuff in PlayerCombat
+	
 	
 	TODO
 	Finish BFA
+	Do Melee attacks
 	
 	
 	? Suggestions

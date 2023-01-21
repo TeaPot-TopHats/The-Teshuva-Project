@@ -12,8 +12,10 @@ using UnityEngine.InputSystem;
 public class PlayerCombat : MonoBehaviour
 {
 	// General Components needed
-	private PlayerInputHandler InputH;
+	public PlayerInputHandler InputH;
 	private PlayerData Data;
+	public PlayerMovement PMove;
+	public Rigidbody2D Rigid;
 
 	// Needed for combat
 	[SerializeField] public GameObject WeaponObject;
@@ -38,6 +40,8 @@ public class PlayerCombat : MonoBehaviour
 	private void Start()
 	{
 		InputH = GetComponent<PlayerInputHandler>();
+		PMove = GetComponent<PlayerMovement>();
+		Rigid = GetComponent<Rigidbody2D>();
 		CurrentState = InitialState;
 		Data = GetComponent<PlayerData>();
 		EquippedWeapon = Data.EquippedWeapon;

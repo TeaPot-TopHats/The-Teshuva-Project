@@ -32,6 +32,7 @@ MonoBehaviour:
   HoldTime: 0.5
   AddHoldDamage: 4
   AttackDamage: 0
-  Recharge: 0.2
+  Knockback: 0
+  Recharge: 0.3
   CritChance: 5
   AddCritDamage: 0
