@@ -37,7 +37,8 @@ public class Inventory : MonoBehaviour
             Debug.LogWarning("Inventroy is full");
             return false;
         }
-        else {
+        else
+        {
             itemList.Add(itemToAdd);
             currentInventory++;
             Debug.Log("****Item " + itemToAdd.itemName + " added to inventory****");
