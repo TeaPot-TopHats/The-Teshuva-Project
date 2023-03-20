@@ -7,6 +7,8 @@ public class PlayerXP : MonoBehaviour
     public int currentXP = 0;
     public int requiredXP = 100;
     public int playerLevel = 1;
+    [Range(1f, 5f)]
+    public float multiplier = 1.5f;
  
     // Update is called once per frame
     void Update()
@@ -25,6 +27,6 @@ public class PlayerXP : MonoBehaviour
     {
         playerLevel++;
         currentXP -= requiredXP;
-        requiredXP = (int)(requiredXP * 1.5f);
+        requiredXP = (int)(requiredXP * multiplier);
     }
 }// end of class

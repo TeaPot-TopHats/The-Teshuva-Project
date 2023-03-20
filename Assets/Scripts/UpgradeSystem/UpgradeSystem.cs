@@ -39,7 +39,6 @@ public class UpgradeSystem : MonoBehaviour
             {
                 upgradeChoices.Add(randomUpgrade); // add upgrade if there is spot
             }
-
         }
         // Present the upgrade choices to the player 
         for (int i = 0; i < upgradeChoices.Count; i++)   
