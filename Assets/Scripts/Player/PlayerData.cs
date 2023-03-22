@@ -1,28 +1,45 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 
 /*
 	! This script:
-	Stores all player information
+	Stores and handles all the player's information.
 */
 
 
 public class PlayerData : MonoBehaviour
 {
 	[SerializeField] public PlayerStat Stats;  // ! Temporary until I make the thing to calculate all player stats
+	
 	[SerializeField] public Weapon EquippedWeapon;
+	[SerializeField] public Weapon SecondWeapon;
+	
+	[SerializeField] public PlayerStat BasePlayerStats;
+	[SerializeField] public PlayerClass PlayerClassStats;
+	[SerializeField] public List<Boon> Boons;
+	[SerializeField] public List<Effect> Effects;
+	[SerializeField] public RelicStat Relic;
 }
 
 
 /*	
 	* Git Commit
-	Added dash state
-	Cleaned up soem stuff in PlayerCombat
+	- Reorganized some folders and scripts as well as scritable object menus.
+	- Created Boon, Class, Effect, and RelicStat scriptable objects.
+	- Started to work on PlayerData to add things like effects, the relic the player is holding, etc.
+	- Commented some scripts.
 	
 	
 	TODO
-	Finish BFA
-	Do Melee attacks
+	Player Stats:
+		- Consult with team: each stat script
+		- Add a way to change weapons
+		- Add a system for Effects
+		- Add a way of changing relic and a system for adding and removing boons
+	Finish BFA:
+		- Do Melee attacks
+		- Implement Ranged attacks
 	
 	
 	? Suggestions

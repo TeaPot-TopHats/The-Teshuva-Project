@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /*
-	This script:
+	! This script:
 	Is a ScriptableObject to create all the weapon attacks that will be needed for the game.
 	It holds all the data for a weapon attack.
 */
@@ -61,6 +61,7 @@ public class WeaponAttack : ScriptableObject
 	public WeaponAttack(){}
 	
 	
+	// ! Copy Constructor
 	public WeaponAttack(WeaponAttack attack)
 	{
 		this.AttackID = attack.AttackID;

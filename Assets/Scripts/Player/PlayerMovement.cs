@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /*
-	This script:
+	! This script:
 	Handles player movement
 */
 

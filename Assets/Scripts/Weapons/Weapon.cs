@@ -1,5 +1,13 @@
 using UnityEngine;
 
+
+/*
+	! This script:
+	Is a ScriptableObject to create all the weapons.
+	It holds all the data for a weapon.
+*/
+
+
 [CreateAssetMenu(fileName = "Weapon", menuName = "Weapons/Weapon")]
 public class Weapon : ScriptableObject
 {	
@@ -7,7 +15,7 @@ public class Weapon : ScriptableObject
 	public string WeaponID;
 	public string Name;
 	public string Description;
-	public Sprite sprite;
+	public Sprite Sprite;
 	
 
 	[Header("Attacks")]

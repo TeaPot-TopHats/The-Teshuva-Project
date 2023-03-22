@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /*
-	This script:
+	! This script:
 	Handles sprites and animations
 */
 
@@ -85,6 +85,6 @@ public class AnimationHandler : MonoBehaviour
 
 	private void UpdateWeaponSprite()
 	{
-		WeaponSprite.sprite = CurrentWeapon.sprite;
+		WeaponSprite.sprite = CurrentWeapon.Sprite;
 	}
 }

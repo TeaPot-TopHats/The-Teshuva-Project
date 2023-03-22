@@ -3,26 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-// BFA stands for Big Fucking Algorithm
+/*
+	! This script:
+	BFA stands for Big Fucking Algorithm
+	This script performs attacks
+*/
+
 
 
 public class BFA : MonoBehaviour
 {
 	private WeaponAttack attack;
 	private bool isStrong;
-	private PlayerCombat combat;
+	// private PlayerCombat combat;
 	
 	private void Start() {
-		combat = GetComponent<PlayerCombat>();
+		// combat = GetComponent<PlayerCombat>();
 	}
 	
 	public void PerformAttack(PlayerStat currentStats, WeaponAttack attack, bool isStrong)
 	{
 		CalculateStats(currentStats, attack);
 		this.isStrong = isStrong;
-		ActuallyDoAttack();
+		Attack();
 	}
 	
+	// this is temporary
 	private void CalculateStats(PlayerStat stats, WeaponAttack attack)
 	{
 		this.attack = new WeaponAttack(attack);
@@ -41,7 +47,7 @@ public class BFA : MonoBehaviour
 		this.attack.Recharge += stats.Recharge;
 	}
 	
-	private void ActuallyDoAttack()
+	private void Attack()
 	{
 		 if (attack.Type == AttackType.MELEE)
 		 {
