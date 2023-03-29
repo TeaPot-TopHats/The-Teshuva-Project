@@ -6,7 +6,7 @@ public class PrimaryAttackState : CombatState
 {
 	// Control flow
 	private bool canShoot = true; // Can we perform an attack?
-	private bool wasHeld = false; // Did we perform a strong attack?
+	private bool wasHeld = false; // Are we holding the button?
 	private bool rapidFire = false; // If the attack type is press, and we hold the mouse the attack happens as soon as it can
 	private bool canSwitch = true; // Are we allowed to switch to another state?
 
@@ -16,6 +16,8 @@ public class PrimaryAttackState : CombatState
 	private float holdTime; // Stores the hold time that determines if the attack is strong or normal
 	private float rechargeTime; // Stores the recharge time for the attack
 	
+	// BFA
+	private bool isStrong = false;
 	
 	public override void EnterState(PlayerCombat combat, InputAction.CallbackContext button, Weapon weapon)
 	{
@@ -32,7 +34,7 @@ public class PrimaryAttackState : CombatState
 	{
 		if (rapidFire && canShoot)
 		{
-			GameObject.Instantiate(attack.Projectile, combat.ProjectileSpawn.transform.position, combat.ProjectileSpawn.transform.rotation);
+			combat.nBFA.PerformAttack(combat.GetPlayerStat(), attack, false);
 			combat.StartCoroutine(Cooldown());
 		}
 	}
@@ -90,7 +92,8 @@ public class PrimaryAttackState : CombatState
 			{
 				Debug.Log("P: PERFORMED");
 				combat.StartCoroutine(Cooldown());
-				GameObject.Instantiate(attack.HoldProjectile, combat.ProjectileSpawn.transform.position, combat.ProjectileSpawn.transform.rotation);
+				isStrong = true;
+				combat.nBFA.PerformAttack(combat.GetPlayerStat(), attack, isStrong);
 				canSwitch = true;
 				wasHeld = false;
 			}
@@ -98,7 +101,8 @@ public class PrimaryAttackState : CombatState
 			{
 				Debug.Log("P: FAILED");
 				combat.StartCoroutine(Cooldown());
-				GameObject.Instantiate(attack.Projectile, combat.ProjectileSpawn.transform.position, combat.ProjectileSpawn.transform.rotation);
+				isStrong = false;
+				combat.nBFA.PerformAttack(combat.GetPlayerStat(), attack, false);
 				canSwitch = true;
 				wasHeld = false;
 			}
@@ -117,10 +121,10 @@ public class PrimaryAttackState : CombatState
 	IEnumerator HoldTimer()
 	{
 		yield return new WaitForSeconds(holdTime);
-        if (wasHeld)
-        {
-            Debug.Log("S: Held READY");
-        }
+		if (wasHeld)
+		{
+			Debug.Log("S: Held READY");
+		}
 	}
 
 }

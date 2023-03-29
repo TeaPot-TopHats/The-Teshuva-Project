@@ -13,14 +13,15 @@ public class PlayerCombat : MonoBehaviour
 {
 	// General Components needed
 	public PlayerInputHandler InputH;
-	private PlayerData Data;
+	public  PlayerData Data;
 	public PlayerMovement PMove;
 	public Rigidbody2D Rigid;
 
 	// Needed for combat
 	[SerializeField] public GameObject WeaponObject;
-	[SerializeField] public GameObject ProjectileSpawn; // ! Temp
+	[SerializeField] public GameObject ProjectileSpawn;
 	private Weapon EquippedWeapon;
+	[SerializeField] public BFA nBFA;
 	
 	// Aiming
 	private Quaternion rotation = new Quaternion(); // Stores rotation calculated from PlayerInputHandler (see fixed update)
@@ -45,6 +46,7 @@ public class PlayerCombat : MonoBehaviour
 		CurrentState = InitialState;
 		Data = GetComponent<PlayerData>();
 		EquippedWeapon = Data.EquippedWeapon;
+		nBFA = GetComponent<BFA>();
 	}
 
 
@@ -79,5 +81,10 @@ public class PlayerCombat : MonoBehaviour
 		newState.EnterState(this, button, EquippedWeapon);
 		newState.PerformAction(this, button); // ! We perform so when we attack and switch state the attack gets performed
 		// ! I decided to do this (PerformAction) here because it should be done like this for all states
+	}
+	
+	public PlayerStat GetPlayerStat()
+	{
+		return Data.GetPlayerStat();
 	}
 }

@@ -22,8 +22,8 @@ public class PlayerInputHandler : MonoBehaviour
 	
 	// Aiming
 	private Vector2 AimCoord; // Stores the world location where the mouse or controller is pointing to
-	public Vector2 AimVector {get; private set;} // Stores the vector that points to where we are aiming
-	public float AimAngle {get; private set;} // We convert the AimVector to location and we put the angle where we are aiming here in degrees
+	public Vector2 AimVector;// {get; private set;} // Stores the vector that points to where we are aiming
+	public float AimAngle; //{get; private set;} // We convert the AimVector to location and we put the angle where we are aiming here in degrees
 	
 	// Device
 	public string CurrentInputDevice { get; private set; }
@@ -87,12 +87,12 @@ public class PlayerInputHandler : MonoBehaviour
 	{
 		if(PlayerInputComponent.currentControlScheme == "Keyboard&Mouse" || PlayerInputComponent.currentControlScheme == "Gamepad")
 		{
-			Debug.Log("Controls Changed: Now using " + PlayerInputComponent.currentControlScheme);
+			Debug.LogWarning("Controls Changed: Now using " + PlayerInputComponent.currentControlScheme);
 			CurrentInputDevice = PlayerInputComponent.currentControlScheme;
 		}
 		else
 		{
-			Debug.Log("Input Device Not Supported: " + PlayerInputComponent.currentControlScheme);
+			Debug.LogWarning("Input Device Not Supported: " + PlayerInputComponent.currentControlScheme);
 			CurrentInputDevice = "NotSupported";
 		}
 	}

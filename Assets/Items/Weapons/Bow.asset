@@ -17,4 +17,4 @@ MonoBehaviour:
   Description: Test
   Sprite: {fileID: 21300000, guid: 09a39bf54a274d44db1e66860bfdc0f7, type: 3}
   PrimaryAttack: {fileID: 11400000, guid: bff2086e3637724479e0fd3001f9f443, type: 2}
-  SecondaryAttack: {fileID: 11400000, guid: 8da22cebb624a864491eb43cababb048, type: 2}
+  SecondaryAttack: {fileID: 11400000, guid: fb91a8a8474bfa3499a4a17e4de44d26, type: 2}

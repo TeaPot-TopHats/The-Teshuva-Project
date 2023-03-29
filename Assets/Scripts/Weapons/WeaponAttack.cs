@@ -31,7 +31,7 @@ public class WeaponAttack : ScriptableObject
 	public GameObject Projectile;  // Projectile prefab to use
 	public GameObject HoldProjectile;
 	
-	public float MultipleNumber; // The number of projectiles
+	public int MultipleNumber; // The number of projectiles
 	public float MultipleRange; // The range where those projectiles will go
 	
 	public float ProjectileSpeed; // Speed of the projectile

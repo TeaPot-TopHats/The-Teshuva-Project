@@ -10,29 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 332ff207116f7bf49b8be3c38fbbeef7, type: 3}
-  m_Name: HoldArrow
+  m_Name: MultipleRangedPress
   m_EditorClassIdentifier: 
-  AttackID: 2
-  Name: HoldArrow
+  AttackID: 3
+  Name: Multiple Ranged Press
   Description: Test
-  Type: 1
+  Type: 2
   Interaction: 1
   MeleeRange: 0
   MeleeReach: 0
   Projectile: {fileID: 7815742069272345287, guid: a55806bf0bf97f245aa159a96712f3c9,
     type: 3}
-  HoldProjectile: {fileID: 7815742069272345287, guid: 15ba29e36c18f3243ac0c710bf756065,
+  HoldProjectile: {fileID: 1088580774678309027, guid: 15ba29e36c18f3243ac0c710bf756065,
     type: 3}
-  MultipleNumber: 0
-  MultipleRange: 0
+  MultipleNumber: 3
+  MultipleRange: 15
   ProjectileSpeed: 10
   ProjectileLifeTime: 7
   ProjectileTravelTime: 7
   AreaOfEffect: 0
   HoldTime: 0.5
   AddHoldDamage: 4
-  AttackDamage: 0
-  Knockback: 0
-  Recharge: 0.3
+  AttackDamage: 5
+  Knockback: 5
+  Recharge: 0.15
   CritChance: 5
   AddCritDamage: 0

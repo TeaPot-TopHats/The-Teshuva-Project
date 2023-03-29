@@ -26,7 +26,7 @@ public class PlayerStat : ScriptableObject
 
 
 	[Header("Range")]
-	public float MultipleNumber;
+	public int MultipleNumber;
 	public float MultipleRange;
 	public float AreaOfEffect;
 
@@ -78,7 +78,7 @@ public class PlayerStat : ScriptableObject
 		this.MeleeRange = 0f;
 		this.MeleeReach = 0f;
 
-		this.MultipleNumber = 0f;
+		this.MultipleNumber = 0;
 		this.MultipleRange = 0f;
 		this.AreaOfEffect = 0f;
 
