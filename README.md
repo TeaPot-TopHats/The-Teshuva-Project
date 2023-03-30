@@ -8,5 +8,5 @@ objective is to survive waves of enemies. Upgrade your skills after completing a
 dying resets your inventory and skills except for holy boons granted by the Church. These holy boons can be obtained by redeeming indulgences dropped from bosses. You'll be able to choose from a few starter
 characters every time you start a game that have different abilities and buffs.
 
-Progress, Report 1 (3/30/2023):
+## Progress, Report 1 (3/30/2023):
 We have completed the basic AI for an enemy NPC. We have the bones for an inventory and spawner systems as well as a tile map. A basic sound manager. We have implemented Unity's New Input System and currently have support for mouse and keyboard as well as controller. Have the bones for a combat system as well as character stats.
