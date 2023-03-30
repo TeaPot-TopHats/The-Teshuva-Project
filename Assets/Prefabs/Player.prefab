@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8781958775324685267}
+  - component: {fileID: 5483778369135537591}
   m_Layer: 0
   m_Name: ProjectileSpawn
   m_TagString: Untagged
@@ -23,14 +24,30 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8781958775324685266}
-  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 8781958776370036429}
-  m_RootOrder: 0
+  m_Father: {fileID: 8781958775869743543}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+--- !u!58 &5483778369135537591
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8781958775324685266}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1
 --- !u!1 &8781958775869743539
 GameObject:
   m_ObjectHideFlags: 0
@@ -72,6 +89,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8781958775964612211}
+  - {fileID: 8781958775324685267}
   - {fileID: 8781958776370036429}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -384,6 +402,8 @@ MonoBehaviour:
   MainCamera: {fileID: 8781958775964612210}
   PlayerInputComponent: {fileID: 8781958775869743530}
   Movement: {x: 0, y: 0}
+  AimVector: {x: 0, y: 0}
+  AimAngle: 0
 --- !u!114 &3709503059572224344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,6 +457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InputH: {fileID: 0}
+  Data: {fileID: 0}
   PMove: {fileID: 0}
   Rigid: {fileID: 0}
   WeaponObject: {fileID: 8781958776370036428}
@@ -456,6 +477,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 088f77b64a1cc314dab24b0b5a34e168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &8781958775964612220
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,10 +592,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.107, z: 0}
   m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
   m_ConstrainProportionsScale: 1
-  m_Children:
-  - {fileID: 8781958775324685267}
+  m_Children: []
   m_Father: {fileID: 8781958775869743543}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8781958776370036418
 SpriteRenderer:

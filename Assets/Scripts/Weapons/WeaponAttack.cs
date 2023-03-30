@@ -74,6 +74,8 @@ public class WeaponAttack : ScriptableObject
 		this.MeleeReach = attack.MeleeReach;
 		
 		this.Projectile = attack.Projectile;
+		this.HoldProjectile = attack.HoldProjectile;
+		
 		this.MultipleNumber = attack.MultipleNumber;
 		this.MultipleRange = attack.MultipleRange;
 		this.ProjectileSpeed = attack.ProjectileSpeed;

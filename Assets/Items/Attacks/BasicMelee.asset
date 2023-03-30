@@ -17,8 +17,8 @@ MonoBehaviour:
   Description: Test
   Type: 0
   Interaction: 0
-  MeleeRange: 3
-  MeleeReach: 5
+  MeleeRange: 90
+  MeleeReach: 2
   Projectile: {fileID: 0}
   HoldProjectile: {fileID: 0}
   MultipleNumber: 0
@@ -30,6 +30,7 @@ MonoBehaviour:
   HoldTime: 0
   AddHoldDamage: 0
   AttackDamage: 0
+  Knockback: 0
   Recharge: 0.3
   CritChance: 5
   AddCritDamage: 0

@@ -33,18 +33,12 @@ public class PlayerData : MonoBehaviour
 
 /*	
 	* Git Commit
-	- Moved DamageCalculation script to stats folder.
-	- Created simple enemy to test attacks, added the Audio Manager to my scene.
-	- Edited arrow script for testing.
-	- Made debug message for controller change a warning
-	- Added RangedMultiple Attacks.
-	- Fixed issue where I had not passed the Projectile prefabs to the new created object for BFA.
-	
-	
+	- Cleaned up and documented what had been written in BFA.
+	- Completed Melee Attack in BFA.
 	
 	TODO
-	- Clean up BFA
-	- Melee Attack
+	- Clean up and comment Melee Attack in BFA.
+	- Use gizmos for visualizing melee reach (circle radius).
 	
 	TODO (Team)
 	- Maitham, make the Audio Manager capable of playing multiple clips at the same time without cutting out the previous one
