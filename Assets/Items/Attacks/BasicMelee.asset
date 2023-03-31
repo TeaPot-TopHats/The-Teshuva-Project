@@ -18,7 +18,7 @@ MonoBehaviour:
   Type: 0
   Interaction: 0
   MeleeRange: 90
-  MeleeReach: 2
+  MeleeReach: 1.6
   Projectile: {fileID: 0}
   HoldProjectile: {fileID: 0}
   MultipleNumber: 0

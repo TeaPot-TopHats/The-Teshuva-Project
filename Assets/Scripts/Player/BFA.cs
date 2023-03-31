@@ -26,6 +26,8 @@ public class BFA : MonoBehaviour
 	private PlayerCombat combat;
 	[SerializeField] private LayerMask enemyLayer;
 	
+	// Debug stuff
+	
 
 	private void Start() {
 		combat = GetComponent<PlayerCombat>();
@@ -83,32 +85,34 @@ public class BFA : MonoBehaviour
 	{
 		Debug.Log("BFA: Melee");
 		
+		// Debug stuff
 		CircleCollider2D circleDebug = combat.ProjectileSpawn.GetComponent<CircleCollider2D>();
 		circleDebug.radius = calculatedAttack.MeleeReach;		
 
 		/*
 			! For this to work properly
 			I am using that is trigger collider as a debug tool. BUT
-			You need to make sure the transfor scales are properly set because they won't match otherwise.
-			What I mean is, because the ProjecileSpawn is a child of Player it is also 5 times bigger. So anything in it like a collider(in this case OverlapCircle)
+			You need to make sure the transform scales are properly set because they won't match otherwise.
+			What I mean is, because the ProjectileSpawn is a child of Player it is also 5 times bigger. So anything in it like a collider(in this case OverlapCircle)
 			we need to resize it by a 1/5th of the size to make the CircleCollider from the player (1x relative to the player) match the size of the
 			OverLapCircle (5x relative to the player)
 		*/
 
-		Collider2D[] enemies = Physics2D.OverlapCircleAll(combat.ProjectileSpawn.transform.position, calculatedAttack.MeleeReach, enemyLayer);
+		Collider2D[] enemyColliders = Physics2D.OverlapCircleAll(combat.ProjectileSpawn.transform.position, calculatedAttack.MeleeReach, enemyLayer);
 		
-		foreach(Collider2D enemy in enemies)
+		foreach(Collider2D enemy in enemyColliders)
 		{
-			Debug.Log(enemy.name);
+			Debug.Log("BFA: Enemy " + enemy.name);
 			
 			AimVector = combat.InputH.AimVector;
 			
-			Vector2 enemyToPlayerVector = enemy.transform.position - transform.position;
+			Vector2 enemyToPlayerVector = enemy.transform.position - combat.ProjectileSpawn.transform.position; // Enemy - Player
 			
 			float dot = Vector2.Dot(AimVector, enemyToPlayerVector);
 			float absolute = (Mathf.Sqrt(Mathf.Pow(AimVector.x, 2) + Mathf.Pow(AimVector.y, 2)) * Mathf.Sqrt(Mathf.Pow(enemyToPlayerVector.x, 2) + Mathf.Pow(enemyToPlayerVector.y, 2)));
 			float angleBetween = Mathf.Acos(dot / absolute) * Mathf.Rad2Deg;
 			
+			// The reason I'm diving by 2 is because I'm thinking of MeleeRange as an FOV so if FOV is 30 they enemy can only be 15 degrees from the aim center.
 			if(angleBetween < calculatedAttack.MeleeRange / 2)
 			{
 				enemy.GetComponent<MJ>().Die();

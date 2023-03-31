@@ -33,6 +33,6 @@ MonoBehaviour:
   AddHoldDamage: 4
   AttackDamage: 5
   Knockback: 5
-  Recharge: 0.1
+  Recharge: 0.3
   CritChance: 5
   AddCritDamage: 0
