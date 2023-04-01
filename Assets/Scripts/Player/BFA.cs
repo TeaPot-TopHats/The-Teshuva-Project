@@ -13,24 +13,40 @@ using UnityEngine;
 public class BFA : MonoBehaviour
 {
 	// Temporary, internal variables
-	private Vector3 projectileSpawn; // This needs to be updated with every attack
-	private GameObject projectile;
+	private Vector3 projectileSpawnVector; // This needs to be updated with every attack
+	private GameObject projectileObject;
+	private bool isStrong = false;
+	private float aimAngle;
+	private Vector2 aimVector;
+	Vector2 enemyToPlayerVector;
+	float dotProduct;
+	float absoluteMagnitude;
+	float angleBetween;
+	float aimRange;
+	int numOfProjectiles;
+	float angleInterval;
+	float currentAngle;
+	Collider2D[] enemyColliders;
+	
 	
 	// Variables that hold the important data passed down from combat system
-	private WeaponAttack calculatedAttack;
-	private bool isStrong = false;
-	private float AimAngle;
-	private Vector2 AimVector;
+	private WeaponAttack wAttack;
+	
 	
 	// External scripts required
-	private PlayerCombat combat;
-	[SerializeField] private LayerMask enemyLayer;
+	private PlayerCombat Combat;
+	private PlayerInputHandler InputH;
+	[SerializeField] private LayerMask EnemyLayer;
+	
 	
 	// Debug stuff
+	bool drawMeleeGizmos = false;
+	bool drawRangedGizmos = false;
 	
 
 	private void Start() {
-		combat = GetComponent<PlayerCombat>();
+		Combat = GetComponent<PlayerCombat>();
+		InputH = GetComponent<PlayerInputHandler>();
 	}
 	
 	public void PerformAttack(PlayerStat currentStats, WeaponAttack attack, bool isStrong)
@@ -38,8 +54,7 @@ public class BFA : MonoBehaviour
 		CalculateStats(currentStats, attack); // We combine these and put the result in calculated attack
 		
 		this.isStrong = isStrong; // Was the attack held?
-		
-		AimAngle = combat.InputH.AimAngle - 90; // it needs to be -90 because of some math stuff idk 🤣
+		aimAngle = InputH.AimAngle - 90; // it needs to be -90 because of some math stuff idk 🤣
 		
 		Attack();
 	}
@@ -47,34 +62,34 @@ public class BFA : MonoBehaviour
 	// ! This is temporary until we make a proper stat calculator in another script
 	private void CalculateStats(PlayerStat stats, WeaponAttack attack)
 	{
-		this.calculatedAttack = new WeaponAttack(attack);
+		this.wAttack = new WeaponAttack(attack);
 		Debug.LogWarning("BFA: Ignore the warning above.");
-		this.calculatedAttack.MeleeRange += stats.MeleeRange;
-		this.calculatedAttack.MeleeReach += stats.MeleeReach;
+		this.wAttack.MeleeRange += stats.MeleeRange;
+		this.wAttack.MeleeReach += stats.MeleeReach;
 		
-		this.calculatedAttack.MultipleNumber += stats.MultipleNumber;
-		this.calculatedAttack.MultipleRange += stats.MultipleRange;
-		this.calculatedAttack.AreaOfEffect += stats.AreaOfEffect;
+		this.wAttack.MultipleNumber += stats.MultipleNumber;
+		this.wAttack.MultipleRange += stats.MultipleRange;
+		this.wAttack.AreaOfEffect += stats.AreaOfEffect;
 		
-		this.calculatedAttack.AddHoldDamage += stats.AddHoldDamage;
+		this.wAttack.AddHoldDamage += stats.AddHoldDamage;
 		
-		this.calculatedAttack.Knockback += stats.Knockback;
-		this.calculatedAttack.CritChance += stats.CritChance;
-		this.calculatedAttack.AddCritDamage += stats.AddCritDamage;
-		this.calculatedAttack.Recharge += stats.Recharge;
+		this.wAttack.Knockback += stats.Knockback;
+		this.wAttack.CritChance += stats.CritChance;
+		this.wAttack.AddCritDamage += stats.AddCritDamage;
+		this.wAttack.Recharge += stats.Recharge;
 	}
 	
 	private void Attack()
 	{
-		 if (calculatedAttack.Type == AttackType.MELEE)
+		 if (wAttack.Type == AttackType.MELEE)
 		 {
 		 	Melee();
 		 }
-		if (calculatedAttack.Type == AttackType.RANGE_SINGLE)
+		if (wAttack.Type == AttackType.RANGE_SINGLE)
 		{
 			RangeSingle();
 		}
-		if (calculatedAttack.Type == AttackType.RANGE_MULTIPLE)
+		if (wAttack.Type == AttackType.RANGE_MULTIPLE)
 		{
 			RangeMultiple();
 		}
@@ -83,39 +98,33 @@ public class BFA : MonoBehaviour
 	
 	private void Melee()
 	{
-		Debug.Log("BFA: Melee");
+		// Debug
+		Debug.Log("BFA: Melee");		
+		drawMeleeGizmos = true;
+		drawRangedGizmos = false;
 		
-		// Debug stuff
-		CircleCollider2D circleDebug = combat.ProjectileSpawn.GetComponent<CircleCollider2D>();
-		circleDebug.radius = calculatedAttack.MeleeReach;		
+		projectileSpawnVector = Combat.ProjectileSpawn.transform.position;
 
-		/*
-			! For this to work properly
-			I am using that is trigger collider as a debug tool. BUT
-			You need to make sure the transform scales are properly set because they won't match otherwise.
-			What I mean is, because the ProjectileSpawn is a child of Player it is also 5 times bigger. So anything in it like a collider(in this case OverlapCircle)
-			we need to resize it by a 1/5th of the size to make the CircleCollider from the player (1x relative to the player) match the size of the
-			OverLapCircle (5x relative to the player)
-		*/
-
-		Collider2D[] enemyColliders = Physics2D.OverlapCircleAll(combat.ProjectileSpawn.transform.position, calculatedAttack.MeleeReach, enemyLayer);
+		// We get all the enemyies we have hit
+		enemyColliders = Physics2D.OverlapCircleAll(projectileSpawnVector, wAttack.MeleeReach, EnemyLayer);
 		
 		foreach(Collider2D enemy in enemyColliders)
 		{
 			Debug.Log("BFA: Enemy " + enemy.name);
 			
-			AimVector = combat.InputH.AimVector;
+			aimVector = Combat.InputH.AimVector; // The direction we are aiming
+
+			enemyToPlayerVector = enemy.transform.position - projectileSpawnVector; // Enemy - Player
 			
-			Vector2 enemyToPlayerVector = enemy.transform.position - combat.ProjectileSpawn.transform.position; // Enemy - Player
-			
-			float dot = Vector2.Dot(AimVector, enemyToPlayerVector);
-			float absolute = (Mathf.Sqrt(Mathf.Pow(AimVector.x, 2) + Mathf.Pow(AimVector.y, 2)) * Mathf.Sqrt(Mathf.Pow(enemyToPlayerVector.x, 2) + Mathf.Pow(enemyToPlayerVector.y, 2)));
-			float angleBetween = Mathf.Acos(dot / absolute) * Mathf.Rad2Deg;
+			dotProduct = Vector2.Dot(aimVector, enemyToPlayerVector);
+			absoluteMagnitude = (Mathf.Sqrt(Mathf.Pow(aimVector.x, 2) + Mathf.Pow(aimVector.y, 2)) * Mathf.Sqrt(Mathf.Pow(enemyToPlayerVector.x, 2) + Mathf.Pow(enemyToPlayerVector.y, 2)));
+			angleBetween = Mathf.Acos(dotProduct / absoluteMagnitude) * Mathf.Rad2Deg;
 			
 			// The reason I'm diving by 2 is because I'm thinking of MeleeRange as an FOV so if FOV is 30 they enemy can only be 15 degrees from the aim center.
-			if(angleBetween < calculatedAttack.MeleeRange / 2)
+			if(angleBetween < wAttack.MeleeRange / 2)
 			{
-				enemy.GetComponent<MJ>().Die();
+				// Do damage
+				enemy.GetComponent<MJ>().Die(); // This is for testing
 			}
 			Debug.Log("BFA: Angle between enemy and player aim is " + angleBetween);
 		}
@@ -123,78 +132,115 @@ public class BFA : MonoBehaviour
 	
 	private void RangeSingle()
 	{
+		// Debug
 		Debug.Log("BFA: Ranged Single");
+		drawMeleeGizmos = false;
+		drawRangedGizmos = true;
 		
-		projectileSpawn = combat.ProjectileSpawn.transform.position;
-		projectile = isStrong ? calculatedAttack.HoldProjectile : calculatedAttack.Projectile;
+		projectileSpawnVector = Combat.ProjectileSpawn.transform.position;
+		projectileObject = isStrong ? wAttack.HoldProjectile : wAttack.Projectile;
 		
-		GameObject.Instantiate(projectile, projectileSpawn, Quaternion.AngleAxis(AimAngle, Vector3.forward));
+		// Spawn Projectile
+		GameObject.Instantiate(projectileObject, projectileSpawnVector, Quaternion.AngleAxis(aimAngle, Vector3.forward));
+		// Pass down all the information to projectilea and initiate it
+		//! insert code here
 	}
 	
 	private void RangeMultiple()
 	{
+		// Debug
 		Debug.Log("BFA: Ranged Multiple");
+		drawMeleeGizmos = false;
+		drawRangedGizmos = true;
 		
-		float AimRange = calculatedAttack.MultipleRange;
-		int Projectiles = calculatedAttack.MultipleNumber;
-		GameObject projectile = isStrong ? calculatedAttack.HoldProjectile : calculatedAttack.Projectile;
-		projectileSpawn = combat.ProjectileSpawn.transform.position;
+		aimRange = wAttack.MultipleRange;
+		numOfProjectiles = wAttack.MultipleNumber;
+		projectileSpawnVector = Combat.ProjectileSpawn.transform.position;
+		projectileObject = isStrong ? wAttack.HoldProjectile : wAttack.Projectile;
 		
 		
-		if (Projectiles < 1)
+		if (numOfProjectiles < 1)
 		{
 			Debug.LogError("BFA: You cannot have zero or negative projectiles");
 		}
 		
-		else if(Projectiles == 1)
+		else if(numOfProjectiles == 1)
 		{
-			Debug.LogError("BFA: Only 1 projectile for RANGE_MULTIPLE Attack");
+			Debug.LogWarning("BFA: Only 1 projectile for RANGE_MULTIPLE Attack!");
 		}
 		
-		else if(Projectiles % 2 == 0) // Even
+		else if(numOfProjectiles % 2 == 0) // Even
 		{
 			Debug.Log("BFA: Even Projectiles");
 			
-			float AngleInterval = (AimRange / 2) / (Projectiles / 2); // The angle between each projectile
+			// The angle between each projectile
+			angleInterval = (aimRange / 2) / (numOfProjectiles / 2);
 			
 			// Upper
-			float CurrentAngle = AimAngle;
-			for (int i = 0; i < Projectiles / 2; i++)
+			currentAngle = aimAngle;
+			for (int i = 0; i < numOfProjectiles / 2; i++, currentAngle += angleInterval)
 			{
-				GameObject.Instantiate(projectile, projectileSpawn, Quaternion.AngleAxis(CurrentAngle += AngleInterval, Vector3.forward));
+				// Spawn Projectile
+				GameObject.Instantiate(projectileObject, projectileSpawnVector, Quaternion.AngleAxis(currentAngle, Vector3.forward));
+				// Pass down all the information to projectilea and initiate it
+				//! insert code here
 			}
 			
 			// Lower
-			CurrentAngle = AimAngle;
-			for (int i = 0; i < Projectiles / 2; i++)
+			currentAngle = aimAngle;
+			for (int i = 0; i < numOfProjectiles / 2; i++, currentAngle -= angleInterval)
 			{
-				GameObject.Instantiate(projectile, projectileSpawn, Quaternion.AngleAxis(CurrentAngle -= AngleInterval, Vector3.forward));
+				// Spawn Projectile
+				GameObject.Instantiate(projectileObject, projectileSpawnVector, Quaternion.AngleAxis(currentAngle, Vector3.forward));
+				// Pass down all the information to projectilea and initiate it
+				//! insert code here
 			}
 		}
 		
-		else if(calculatedAttack.MultipleNumber % 2 != 0) // Odd
+		else if(wAttack.MultipleNumber % 2 != 0) // Odd
 		{
 			Debug.Log("BFA: Odd Projectiles");
 			
-			float AngleInterval = (AimRange / 2) / (Projectiles / 2); // The angle between each projectile
+			angleInterval = (aimRange / 2) / (numOfProjectiles / 2); // The angle between each projectile
 
 			// Upper
-			float CurrentAngle = AimAngle;
-			for (int i = 0; i < Projectiles / 2; i++)
+			currentAngle = aimAngle;
+			for (int i = 0; i < numOfProjectiles / 2; i++, currentAngle += angleInterval)
 			{
-				GameObject.Instantiate(projectile, projectileSpawn, Quaternion.AngleAxis(CurrentAngle += AngleInterval, Vector3.forward));
+				// Spawn Projectile
+				GameObject.Instantiate(projectileObject, projectileSpawnVector, Quaternion.AngleAxis(currentAngle, Vector3.forward));
+				// Pass down all the information to projectilea and initiate it
+				//! insert code here
 			}
 			
-			GameObject.Instantiate(projectile, projectileSpawn, Quaternion.AngleAxis(AimAngle, Vector3.forward)); // This is the projectile in the middle
+			GameObject.Instantiate(projectileObject, projectileSpawnVector, Quaternion.AngleAxis(aimAngle, Vector3.forward)); // This is the projectile in the middle
 			
 			// Lower
-			CurrentAngle = AimAngle;
-			for (int i = 0; i < Projectiles / 2; i++)
+			currentAngle = aimAngle;
+			for (int i = 0; i < numOfProjectiles / 2; i++, currentAngle -= angleInterval)
 			{
-				GameObject.Instantiate(projectile, projectileSpawn, Quaternion.AngleAxis(CurrentAngle -= AngleInterval, Vector3.forward));
+                // Spawn Projectile
+                GameObject.Instantiate(projectileObject, projectileSpawnVector, Quaternion.AngleAxis(currentAngle, Vector3.forward));
+                // Pass down all the information to projectilea and initiate it
+                //! insert code here
 			}
 		}
 
+	}
+
+	private void OnDrawGizmos() {
+		
+		if(drawMeleeGizmos)
+		{
+			Gizmos.color = Color.red;
+			Gizmos.DrawRay(Combat.ProjectileSpawn.transform.position, Combat.InputH.AimVector); // Draws line from weapon to mouse cursor
+			Gizmos.DrawWireSphere(Combat.ProjectileSpawn.transform.position, wAttack.MeleeReach); // Draws the reach of the melee weapon
+		}
+		else if(drawRangedGizmos)
+		{
+			Gizmos.color = Color.blue;
+			Gizmos.DrawRay(Combat.ProjectileSpawn.transform.position, Combat.InputH.AimVector); // Draws line from weapon to mouse cursor
+		}
 	}
 
 }

@@ -21,7 +21,7 @@ public class PlayerInputHandler : MonoBehaviour
 	[SerializeField] public Vector2 Movement;
 	
 	// Aiming
-	private Vector2 AimCoord; // Stores the world location where the mouse or controller is pointing to
+	public Vector2 AimCoord; // Stores the world location where the mouse or controller is pointing to
 	public Vector2 AimVector;// {get; private set;} // Stores the vector that points to where we are aiming
 	public float AimAngle; //{get; private set;} // We convert the AimVector to location and we put the angle where we are aiming here in degrees
 	

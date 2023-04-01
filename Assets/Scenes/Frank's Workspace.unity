@@ -1349,8 +1349,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 255172415351279404, guid: 11aee7f1f87187e4db4036d9d224b563,
         type: 3}
+      propertyPath: sounds.Array.data[0].isLoop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 255172415351279404, guid: 11aee7f1f87187e4db4036d9d224b563,
+        type: 3}
       propertyPath: sounds.Array.data[0].volume
       value: 0.246
+      objectReference: {fileID: 0}
+    - target: {fileID: 255172415351279404, guid: 11aee7f1f87187e4db4036d9d224b563,
+        type: 3}
+      propertyPath: sounds.Array.data[1].isLoop
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 255172415351279404, guid: 11aee7f1f87187e4db4036d9d224b563,
         type: 3}
@@ -1599,12 +1609,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4711091670001152225, guid: 406b0e29b0b388e4180503c70c0c1521,
-        type: 3}
-      propertyPath: EquippedWeapon
-      value: 
-      objectReference: {fileID: 11400000, guid: e79537da85fb2d049bd52177186f51d3,
-        type: 2}
     - target: {fileID: 8781958775869743539, guid: 406b0e29b0b388e4180503c70c0c1521,
         type: 3}
       propertyPath: m_Name

@@ -33,17 +33,15 @@ public class PlayerData : MonoBehaviour
 
 /*	
 	* Git Commit
-	- Angle calculation for melee attacks is now from SpawnProjectile instead of the player pivot.
-	- Cleaned up and commented Melee Attack in BFA.
-	- Started working on projectiles.
-	- Created Projectile scriptable object, ProjectileBehavior script, and ProjectileType enum.
+	- Added gizmos for visualizing melee and ranged attacks
+	- Organized variables, updated variable names for readability, and commented BFA.
 	- 
 	
 	TODO
-	- Clean up and comment Melee Attack in BFA.
-	- Use gizmos for visualizing melee reach (circle radius).
 	- Finish making Projectiles
 	- Change Projectile in WeaponAttack and PlayerStat to a Projectile class instead of GameObject.
+	- Make dash state
+	- Figure out everything that needs to change
 	
 	TODO (Team)
 	- Maitham, make the Audio Manager capable of playing multiple clips at the same time without cutting out the previous one

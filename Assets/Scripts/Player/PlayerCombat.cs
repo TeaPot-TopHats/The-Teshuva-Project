@@ -13,18 +13,18 @@ public class PlayerCombat : MonoBehaviour
 {
 	// General Components needed
 	public PlayerInputHandler InputH;
-	public  PlayerData Data;
+	public  PlayerData PData;
 	public PlayerMovement PMove;
 	public Rigidbody2D Rigid;
 
 	// Needed for combat
 	[SerializeField] public GameObject WeaponObject;
 	[SerializeField] public GameObject ProjectileSpawn;
-	private Weapon EquippedWeapon;
+	public Weapon EquippedWeapon;
 	[SerializeField] public BFA nBFA;
 	
 	// Aiming
-	private Quaternion rotation = new Quaternion(); // Stores rotation calculated from PlayerInputHandler (see fixed update)
+	private Quaternion rotation; // Stores rotation calculated from PlayerInputHandler (see fixed update)
 
 	// Control flow
 	public bool canLook = true;
@@ -35,17 +35,22 @@ public class PlayerCombat : MonoBehaviour
 	public CombatState PrimaryAttackState = new PrimaryAttackState();
 	public CombatState SecondaryAttackState = new SecondaryAttackState();
 	// ! => Dash state goes here
+	
 	public CombatState CurrentState;
 
 
 	private void Start()
 	{
 		InputH = GetComponent<PlayerInputHandler>();
+		PData = GetComponent<PlayerData>();
 		PMove = GetComponent<PlayerMovement>();
+		
 		Rigid = GetComponent<Rigidbody2D>();
+		
 		CurrentState = InitialState;
-		Data = GetComponent<PlayerData>();
-		EquippedWeapon = Data.EquippedWeapon;
+		
+		EquippedWeapon = PData.EquippedWeapon;
+		
 		nBFA = GetComponent<BFA>();
 	}
 
@@ -85,6 +90,6 @@ public class PlayerCombat : MonoBehaviour
 	
 	public PlayerStat GetPlayerStat()
 	{
-		return Data.GetPlayerStat();
+		return PData.GetPlayerStat();
 	}
 }

@@ -24,7 +24,7 @@ MonoBehaviour:
   HoldProjectile: {fileID: 1088580774678309027, guid: 15ba29e36c18f3243ac0c710bf756065,
     type: 3}
   MultipleNumber: 11
-  MultipleRange: 15
+  MultipleRange: 30
   ProjectileSpeed: 10
   ProjectileLifeTime: 7
   ProjectileTravelTime: 7
