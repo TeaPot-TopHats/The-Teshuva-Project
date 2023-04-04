@@ -16,17 +16,18 @@ public class PrimaryAttackState : CombatState
 	private float holdTime; // Stores the hold time that determines if the attack is strong or normal
 	private float rechargeTime; // Stores the recharge time for the attack
 	
-	// BFA
-	private bool isStrong = false;
-	
-	public override void EnterState(PlayerCombat combat, InputAction.CallbackContext button, Weapon weapon)
+	public override void EnterState(PlayerCombat combat, InputAction.CallbackContext button)
 	{
 		Debug.Log("Entered Primary");
-		this.attack = weapon.PrimaryAttack;
-
-		this.interaction = attack.Interaction;
-		this.holdTime = attack.HoldTime;
-		this.rechargeTime = attack.Recharge;
+		if (combat.attackCancelled)
+		{
+			rapidFire = false;
+			canSwitch = true;
+			wasHeld = false;
+			canShoot = true;
+			
+			combat.attackCancelled = false;
+		}
 	}
 
 
@@ -42,6 +43,12 @@ public class PrimaryAttackState : CombatState
 	
 	public override void PerformAction(PlayerCombat combat, InputAction.CallbackContext button)
 	{
+		this.attack = combat.EquippedWeapon.PrimaryAttack;
+
+		this.interaction = attack.Interaction;
+		this.holdTime = attack.HoldTime;
+		this.rechargeTime = attack.Recharge;
+
 		if (button.action.name == "Primary")
 		{
 			if (interaction == InteractionType.PRESS)
@@ -56,6 +63,25 @@ public class PrimaryAttackState : CombatState
 		else if (button.action.name == "Secondary" && canSwitch)
 		{
 			combat.SwitchState(combat.SecondaryAttackState, button);
+		}
+		else if (button.action.name == "Dash")
+		{
+			// combat.SwitchState(combat.DashState, button);
+			// rapidFire = false;
+			// canSwitch = true;
+			// wasHeld = false;
+			// canShoot = true;
+			
+			if(button.started)
+			{
+				combat.SwitchState(combat.DashState, button);
+				combat.switchBack = true;
+				combat.previousState = "Primary"; 
+				// rapidFire = false;
+				// canSwitch = true;
+				// wasHeld = false;
+				// canShoot = true;
+			}
 		}
 	}
 	
@@ -92,8 +118,7 @@ public class PrimaryAttackState : CombatState
 			{
 				Debug.Log("P: PERFORMED");
 				combat.StartCoroutine(Cooldown());
-				isStrong = true;
-				combat.nBFA.PerformAttack(combat.GetPlayerStat(), attack, isStrong);
+				combat.nBFA.PerformAttack(combat.GetPlayerStat(), attack, true);
 				canSwitch = true;
 				wasHeld = false;
 			}
@@ -101,7 +126,6 @@ public class PrimaryAttackState : CombatState
 			{
 				Debug.Log("P: FAILED");
 				combat.StartCoroutine(Cooldown());
-				isStrong = false;
 				combat.nBFA.PerformAttack(combat.GetPlayerStat(), attack, false);
 				canSwitch = true;
 				wasHeld = false;
@@ -110,7 +134,7 @@ public class PrimaryAttackState : CombatState
 	}
 
 
-	IEnumerator Cooldown()
+	private IEnumerator Cooldown()
 	{
 		canShoot = false;
 		yield return new WaitForSeconds(rechargeTime);
@@ -118,7 +142,7 @@ public class PrimaryAttackState : CombatState
 	}
 
 
-	IEnumerator HoldTimer()
+	private IEnumerator HoldTimer()
 	{
 		yield return new WaitForSeconds(holdTime);
 		if (wasHeld)

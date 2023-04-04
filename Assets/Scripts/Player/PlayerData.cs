@@ -33,15 +33,17 @@ public class PlayerData : MonoBehaviour
 
 /*	
 	* Git Commit
-	- Added gizmos for visualizing melee and ranged attacks
-	- Organized variables, updated variable names for readability, and commented BFA.
-	- 
+	- Updated CombatState and classes derived from it to refernce the weapon on PlayerCombat instead of storing the attack once the
+		state machine enters the state. This would result in the weapon not updating unless the player changed states.
+	- Made the DashState, player can now dash. Bug-free so far.
+	- Added quality of life feature, when you are shooting and then you dash, you will continue shooting after dash is done. Fixed issue where
+		if you release fire button while dashing the player would continue shooting. This took me like 2 hours to add and fix.
 	
 	TODO
 	- Finish making Projectiles
-	- Change Projectile in WeaponAttack and PlayerStat to a Projectile class instead of GameObject.
-	- Make dash state
+		- Change Projectile in WeaponAttack and PlayerStat to a Projectile class instead of GameObject.
 	- Figure out everything that needs to change
+	- Clean up and comment DashState
 	
 	TODO (Team)
 	- Maitham, make the Audio Manager capable of playing multiple clips at the same time without cutting out the previous one
@@ -52,6 +54,8 @@ public class PlayerData : MonoBehaviour
 	
 	When adding a magic force use a circular object that gets bigger away from the player and knocks back stuff. Under the hood
 	it works the same way as melee, I think.
+	
+	Look into object pooling
 	
 	* Notes:
 	- Class Stats, Boons, Effects(Potions), and Relics will be done after the core game is done.

@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class InitialState : CombatState
 {
-	public override void EnterState(PlayerCombat combat, InputAction.CallbackContext button, Weapon weapon)
+	public override void EnterState(PlayerCombat combat, InputAction.CallbackContext button)
 	{
 
 	}
@@ -26,9 +26,9 @@ public class InitialState : CombatState
 		{
 			combat.SwitchState(combat.SecondaryAttackState, button);
 		}
-		else if (button.action.name == "Dash")
-		{
-			
-		}
+        else if (button.action.name == "Dash")
+        {
+            combat.SwitchState(combat.DashState, button);
+        }
 	}
 }

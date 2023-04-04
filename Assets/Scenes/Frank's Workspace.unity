@@ -1609,6 +1609,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4711091670001152225, guid: 406b0e29b0b388e4180503c70c0c1521,
+        type: 3}
+      propertyPath: EquippedWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: e79537da85fb2d049bd52177186f51d3,
+        type: 2}
+    - target: {fileID: 7492285050899355437, guid: 406b0e29b0b388e4180503c70c0c1521,
+        type: 3}
+      propertyPath: EnemyLayer.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 8781958775869743539, guid: 406b0e29b0b388e4180503c70c0c1521,
         type: 3}
       propertyPath: m_Name

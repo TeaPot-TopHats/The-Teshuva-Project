@@ -15,16 +15,20 @@ public class SecondaryAttackState : CombatState
 	private InteractionType interaction; // Stores the interaction of the attack
 	private float holdTime; // Stores the hold time that determines if the attack is strong or normal
 	private float rechargeTime; // Stores the recharge time for the attack
+	
 
-
-	public override void EnterState(PlayerCombat combat, InputAction.CallbackContext button, Weapon weapon)
+	public override void EnterState(PlayerCombat combat, InputAction.CallbackContext button)
 	{
 		Debug.Log("Entered Secondary");
-		this.attack = weapon.SecondaryAttack;
+		if (combat.attackCancelled)
+		{
+			rapidFire = false;
+			canSwitch = true;
+			wasHeld = false;
+			canShoot = true;
 
-		this.interaction = attack.Interaction;
-		this.holdTime = attack.HoldTime;
-		this.rechargeTime = attack.Recharge;
+            combat.attackCancelled = false;
+		}
 	}
 
 
@@ -32,7 +36,7 @@ public class SecondaryAttackState : CombatState
 	{
 		if (rapidFire && canShoot)
 		{
-            combat.nBFA.PerformAttack(combat.GetPlayerStat(), attack, false);
+			combat.nBFA.PerformAttack(combat.GetPlayerStat(), attack, false);
 			combat.StartCoroutine(Cooldown());
 		}
 	}
@@ -40,7 +44,13 @@ public class SecondaryAttackState : CombatState
 	
 	public override void PerformAction(PlayerCombat combat, InputAction.CallbackContext button)
 	{
-		if(button.action.name == "Secondary")
+		this.attack = combat.EquippedWeapon.SecondaryAttack;
+
+		this.interaction = attack.Interaction;
+		this.holdTime = attack.HoldTime;
+		this.rechargeTime = attack.Recharge;
+
+		if (button.action.name == "Secondary")
 		{
 			if (interaction == InteractionType.PRESS)
 			{
@@ -51,9 +61,28 @@ public class SecondaryAttackState : CombatState
 				Hold(combat, button);
 			}
 		}
-		else if(button.action.name == "Primary" && canSwitch)
+		else if (button.action.name == "Primary" && canSwitch)
 		{
 			combat.SwitchState(combat.PrimaryAttackState, button);
+		}
+		else if (button.action.name == "Dash")
+		{
+			// combat.SwitchState(combat.DashState, button);
+			// rapidFire = false;
+			// canSwitch = true;
+			// wasHeld = false;
+			// canShoot = true;
+	
+			if (button.started)
+			{
+				combat.SwitchState(combat.DashState, button);
+				combat.switchBack = true;
+				combat.previousState = "Secondary";
+				// rapidFire = false;
+				// canSwitch = true;
+				// wasHeld = false;
+				// canShoot = true;
+			}
 		}
 	}
 
@@ -88,17 +117,17 @@ public class SecondaryAttackState : CombatState
 			}
 			if (button.canceled && button.duration >= holdTime && wasHeld)
 			{
-				Debug.Log("S: PERFORMED");
+				Debug.Log("P: PERFORMED");
 				combat.StartCoroutine(Cooldown());
-                combat.nBFA.PerformAttack(combat.GetPlayerStat(), attack, true);
+				combat.nBFA.PerformAttack(combat.GetPlayerStat(), attack, true);
 				canSwitch = true;
 				wasHeld = false;
 			}
 			else if (button.canceled && wasHeld)
 			{
-				Debug.Log("S: FAILED");
+				Debug.Log("P: FAILED");
 				combat.StartCoroutine(Cooldown());
-                combat.nBFA.PerformAttack(combat.GetPlayerStat(), attack, false);
+				combat.nBFA.PerformAttack(combat.GetPlayerStat(), attack, false);
 				canSwitch = true;
 				wasHeld = false;
 			}
@@ -106,14 +135,14 @@ public class SecondaryAttackState : CombatState
 	}
 
 
-	IEnumerator Cooldown()
+	private IEnumerator Cooldown()
 	{
 		canShoot = false;
 		yield return new WaitForSeconds(rechargeTime);
 		canShoot = true;
 	}
 	
-	IEnumerator HoldTimer()
+	private IEnumerator HoldTimer()
 	{
 		yield return new WaitForSeconds(holdTime);
 		if (wasHeld)

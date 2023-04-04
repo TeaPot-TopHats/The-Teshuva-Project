@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
 	
 	// Control flow
 	public bool canMove = true;
+	public bool isDashing = false;
 	
 
 	private void Start()
@@ -26,6 +27,11 @@ public class PlayerMovement : MonoBehaviour
 	
 	private void FixedUpdate()
 	{
+		if(isDashing)
+		{
+			return;
+		}
+		
 		if(canMove)
 		{
 			Vector2 targetSpeed = new Vector2(InputH.Movement.x * Data.Stats.MoveSpeed, InputH.Movement.y * Data.Stats.MoveSpeed);

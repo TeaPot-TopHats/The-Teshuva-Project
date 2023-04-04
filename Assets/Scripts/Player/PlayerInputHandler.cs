@@ -96,5 +96,4 @@ public class PlayerInputHandler : MonoBehaviour
 			CurrentInputDevice = "NotSupported";
 		}
 	}
-
 }

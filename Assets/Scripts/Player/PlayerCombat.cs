@@ -34,9 +34,13 @@ public class PlayerCombat : MonoBehaviour
 	public CombatState InitialState = new InitialState();
 	public CombatState PrimaryAttackState = new PrimaryAttackState();
 	public CombatState SecondaryAttackState = new SecondaryAttackState();
-	// ! => Dash state goes here
+	public CombatState DashState = new DashState();
 	
 	public CombatState CurrentState;
+
+	public bool switchBack = false;
+	public string previousState;
+	public bool attackCancelled = false;
 
 
 	private void Start()
@@ -83,7 +87,7 @@ public class PlayerCombat : MonoBehaviour
 	public void SwitchState(CombatState newState, InputAction.CallbackContext button)
 	{
 		CurrentState = newState;
-		newState.EnterState(this, button, EquippedWeapon);
+		newState.EnterState(this, button);
 		newState.PerformAction(this, button); // ! We perform so when we attack and switch state the attack gets performed
 		// ! I decided to do this (PerformAction) here because it should be done like this for all states
 	}
