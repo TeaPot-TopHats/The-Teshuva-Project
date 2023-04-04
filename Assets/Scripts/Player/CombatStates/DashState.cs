@@ -16,9 +16,10 @@ public class DashState : CombatState
 	private bool canDash = true;
 	private bool isDirectionZero = false;
 	
+	
 	private float dashSpeed = 35f;
 	private float dashCooldown = 1f;
-	private float dashTime = 1f;
+	private float dashTime = 0.12f;
 
 		
 	public override void EnterState(PlayerCombat combat, InputAction.CallbackContext button)
@@ -62,21 +63,21 @@ public class DashState : CombatState
 				combat.SwitchState(combat.PrimaryAttackState, button);
 			}
 		}
-        else if (button.action.name == "Secondary")
-        {
-            if (button.canceled)
-            {
-                combat.attackCancelled = true;
-            }
-            else if (button.started && isDashing)
-            {
-                combat.attackCancelled = false;
-            }
-            else if (canSwitch)
-            {
-                combat.SwitchState(combat.SecondaryAttackState, button);
-            }
-        }
+		else if (button.action.name == "Secondary")
+		{
+			if (button.canceled)
+			{
+				combat.attackCancelled = true;
+			}
+			else if (button.started && isDashing)
+			{
+				combat.attackCancelled = false;
+			}
+			else if (canSwitch)
+			{
+				combat.SwitchState(combat.SecondaryAttackState, button);
+			}
+		}
 	}
 	
 	private void Dash(InputAction.CallbackContext button)

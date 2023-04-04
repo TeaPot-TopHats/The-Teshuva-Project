@@ -38,12 +38,13 @@ public class PlayerData : MonoBehaviour
 	- Made the DashState, player can now dash. Bug-free so far.
 	- Added quality of life feature, when you are shooting and then you dash, you will continue shooting after dash is done. Fixed issue where
 		if you release fire button while dashing the player would continue shooting. This took me like 2 hours to add and fix.
+	- Changed up dash values so the others can test how it should feel.
 	
 	TODO
 	- Finish making Projectiles
 		- Change Projectile in WeaponAttack and PlayerStat to a Projectile class instead of GameObject.
-	- Figure out everything that needs to change
 	- Clean up and comment DashState
+	- Revise fix for dashing and attacking
 	
 	TODO (Team)
 	- Maitham, make the Audio Manager capable of playing multiple clips at the same time without cutting out the previous one

@@ -65,22 +65,12 @@ public class PrimaryAttackState : CombatState
 			combat.SwitchState(combat.SecondaryAttackState, button);
 		}
 		else if (button.action.name == "Dash")
-		{
-			// combat.SwitchState(combat.DashState, button);
-			// rapidFire = false;
-			// canSwitch = true;
-			// wasHeld = false;
-			// canShoot = true;
-			
+		{			
 			if(button.started)
 			{
 				combat.SwitchState(combat.DashState, button);
 				combat.switchBack = true;
-				combat.previousState = "Primary"; 
-				// rapidFire = false;
-				// canSwitch = true;
-				// wasHeld = false;
-				// canShoot = true;
+				combat.previousState = "Primary";
 			}
 		}
 	}
