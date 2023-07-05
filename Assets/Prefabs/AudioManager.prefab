@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 255172415351279407}
-  - component: {fileID: 255172415351279404}
+  - component: {fileID: 1562455505}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &255172415351279404
+--- !u!114 &1562455505
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,12 +41,39 @@ MonoBehaviour:
   m_GameObject: {fileID: 255172415351279405}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d88b3fc941c6cd944896b90dffdcaff8, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d69eb4dffee59346980de0d2e2ff70b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  options: {fileID: 0}
-  soundEffectsMixerGroup: {fileID: 4334053151207296596, guid: 9150320ca5beabf4e9c7bf670372a79a,
-    type: 2}
-  musicMixerGroup: {fileID: -4827855483878118626, guid: 9150320ca5beabf4e9c7bf670372a79a,
-    type: 2}
-  sounds: []
+  AreMixersSetupProperly: 0
+  DisableSpatialBlend: 0
+  EnableDebug: 1
+  MixersInfo:
+  - Mixer: {fileID: 24100000, guid: 3d13c72ffe7e418479e7da96dc496545, type: 2}
+    UpdateMode: 0
+  MixerGroups:
+  - {fileID: 1455122978332186086, guid: 3d13c72ffe7e418479e7da96dc496545, type: 2}
+  - {fileID: -8726408668415078965, guid: 3d13c72ffe7e418479e7da96dc496545, type: 2}
+  Sounds:
+  - ClipName: Theme
+    Source: {fileID: 0}
+    MixerGroup: {fileID: 1455122978332186086, guid: 3d13c72ffe7e418479e7da96dc496545,
+      type: 2}
+    AudioFile: {fileID: 8300000, guid: 51bbcf8d27862c641bf7f9ba7d466a40, type: 3}
+    BypassEffects: 0
+    BypassListenerEffects: 0
+    BypassReverbZones: 0
+    PlayOnAwake: 1
+    Loop: 1
+    Priority: 128
+    Volume: 0.5
+    Pitch: 1
+    StereoPan: 0
+    SpatialBlend: 0
+    ReverbZoneMix: 0
+    DopplerLevel: 0
+    Spread: 0
+    VolumeRolloff: 1
+    MinDistance: 1
+    MaxDistance: 15
+  SourceSounds: []
+  GameAudioVersion: 
